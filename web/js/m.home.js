@@ -12,7 +12,7 @@ $('.common_right_panel').load('_right-panels.html');
 $('.common_article_list').load('_article-list.html')
 
 //文章列表排序方式函数
-function article_list_sort(selector, callback) {
+function article_list_sort(selector) {
     let glass = "text-primary";
     let data_mark = $(selector).attr("data-mark");
     let a_list = $(selector).parent().find('a');
@@ -24,13 +24,11 @@ function article_list_sort(selector, callback) {
         }
     }
     article_list_order_type = data_mark;
-    if (typeof callback == "function") {
-        callback();
-    }
+    $('.common_article_list').load('_article-list.html')
 }
 
 //文章类型选择
-function article_scope_option(selector, callback) {
+function article_scope_option(selector) {
     let glass = "text-primary";
     let data_mark = $(selector).attr("data-mark");
     let a_list = $(selector).parent().find('a');
@@ -42,7 +40,5 @@ function article_scope_option(selector, callback) {
         }
     }
     article_scope = data_mark;
-    if (typeof callback == "function") {
-        callback();
-    }
+    $('.common_article_list').load('_article-list.html')
 }

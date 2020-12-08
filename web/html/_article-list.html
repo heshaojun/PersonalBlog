@@ -4,6 +4,7 @@
 </div>
 <script>
     $(document).ready(function () {
+        alert(window.article_scope)
         $.get("../static/data/article_list.json?current_page=1&page_size=10&order_type=" + window.article_list_order_type + "&scope=" + window.article_scope, function (data, status) {
             if (status == "success") {
                 load_article_list(data);
