@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>博客首页</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <script type="application/javascript" src="../js/jquery.js"></script>
+    <script type="application/javascript" src="../js/bootstrap.bundle.js"></script>
+    <script type="application/javascript" src="../js/bootstrap.js"></script>
+</head>
+<body style="background-color: #DDDDDD">
+<!--头部导航栏-->
+<header class="bg-primary w-100 position-fixed" style="z-index: 1000">
+    <div class="container common_navigation_bar">
+    </div>
+</header>
+<!--中部内容展示-->
+<article class="w-100" style="padding-top: 50px">
+    <div class="container">
+        <div class="row">
+            <!--                中部展示区域-->
+            <div class="col-md-9 col-sm-12 p-0">
+                <div>
+                    <div class="list-group-item pt-1 pb-1">
+                        <a class="btn p-0 mr-2 text-primary" data-mark="all"
+                           onclick="article_scope_option(this)">全部(1100)</a>
+                        <a class="btn p-0 mr-2" data-mark="blog"
+                           onclick="article_scope_option(this)">博客(1000)</a>
+                        <a class="btn p-0 mr-2" data-mark="note"
+                           onclick="article_scope_option(this)">笔记(10)</a>
+                    </div>
+                    <div class="list-group-item  pt-0 pb-0 d-flex flex-row-reverse">
+                        <a class="btn p-0" onclick="article_list_sort(this)"
+                           data-mark="visits"><small>按访问量排序</small></a>
+                        <div class="ml-1 mr-1">/</div>
+                        <a class="btn p-0 text-primary" onclick="article_list_sort(this)"
+                           data-mark="time"><small>按时间排序</small></a>
+                    </div>
+                </div>
+                <div class="common_article_list"></div>
+                <div class="mt-1 bg-light">
+                    备案信息
+                </div>
+            </div>
+            <!--            右侧卡片区域-->
+            <div class="col-md-3 d-sm-none d-lg-block d-md-block d-lg-block d-xl-block p-0 pl-1 common_right_panel">
+            </div>
+        </div>
+    </div>
+</article>
+</body>
+<script type="application/javascript" src="../js/m.home.js"></script>
+</html>

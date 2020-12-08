@@ -1,0 +1,33 @@
+<!--文章列表公共模块-->
+<div class="list-group list-group-flush " id="common_article_lists">
+
+</div>
+<script>
+    $(document).ready(function () {
+        $.get("../static/data/article_list.json?current_page=1&page_size=10&order_type=" + window.article_list_order_type + "&scope=" + window.article_scope, function (data, status) {
+            if (status == "success") {
+                load_article_list(data);
+            }
+        })
+    });
+
+    function load_article_list(data) {
+        let list = data['article_list'];
+        let html = "";
+        for (let i = 0; i < list.length; i++) {
+            let item = list[i];
+            let div = ' <a class="list-group-item list-group-item-action pt-1 pb-1" href="/detail?id=' + item['id'] + '">\n' +
+                '        <div class="w-100"><span class="small pl-1 pr-1 bg-warning text-info">' + item['type'] + '</span><span\n' +
+                '                class=" font-weight-bold ml-2">' + item['title'] + '</span></div>\n' +
+                '        <div><span>' + item['summary'] + '</span></div>\n' +
+                '        <div>\n' +
+                '            <span class="small">' + item['create_time'] + '</span>\n' +
+                '            <span class="ml-3 small"><img class="mr-1" src="../static/icon/watch_icon.png" height="20px">' + item['visits'] + '</span>\n' +
+                '            <span class="ml-3 small"><img class="mr-1" src="../static/icon/comments_icon.png" height="20px">' + item['comments'] + '</span>\n' +
+                '        </div>\n' +
+                '    </a>';
+            html += div;
+        }
+        $("#common_article_lists").html(html);
+    }
+</script>
