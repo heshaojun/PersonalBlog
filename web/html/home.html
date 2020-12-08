@@ -11,17 +11,17 @@
 <body style="background-color: #DDDDDD">
 <!--头部导航栏-->
 <header class="bg-primary w-100 position-fixed" style="z-index: 1000">
-    <div class="container common_navigation_bar">
+    <div class="container-xl common_navigation_bar">
     </div>
 </header>
 <!--中部内容展示-->
 <article class="w-100" style="padding-top: 50px">
-    <div class="container">
+    <div class="container-xl">
         <div class="row">
             <!--                中部展示区域-->
             <div class="col-md-9 col-sm-12 p-0">
-                <div>
-                    <div class="list-group-item pt-1 pb-1">
+                <div class="list-group-item bg-white border-bottom w-100 clearfix pb-1">
+                    <div class="pt-1 pb-1 float-sm-left">
                         <a class="btn p-0 mr-2 text-primary" data-mark="all"
                            onclick="article_scope_option(this)">全部(1100)</a>
                         <a class="btn p-0 mr-2" data-mark="blog"
@@ -29,10 +29,10 @@
                         <a class="btn p-0 mr-2" data-mark="note"
                            onclick="article_scope_option(this)">笔记(10)</a>
                     </div>
-                    <div class="list-group-item  pt-0 pb-0 d-flex flex-row-reverse">
+                    <div class="pt-1 pb-1  float-sm-right">
                         <a class="btn p-0" onclick="article_list_sort(this)"
                            data-mark="visits"><small>按访问量排序</small></a>
-                        <div class="ml-1 mr-1">/</div>
+                        <span class="ml-1 mr-1">/</span>
                         <a class="btn p-0 text-primary" onclick="article_list_sort(this)"
                            data-mark="time"><small>按时间排序</small></a>
                     </div>
