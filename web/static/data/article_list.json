@@ -1,9 +1,10 @@
 {
-  "page_size": 10,
-  "current_page": 1,
-  "count_page": 5,
-  "order_by": "visits",
-  "article_list": [
+  "size": 10,
+  "current": 1,
+  "count": 5,
+  "order": "visits",
+  "total": 20,
+  "list": [
     {
       "visits": 10000,
       "create_time": "2020-10-12 13:04:22",
