@@ -4,12 +4,6 @@ var navigation_active_index = 0;
 var article_list_order_type = "time";
 //文章范围
 var article_scope = "all";
-//加载导航栏
-$('.common_navigation_bar').load('_navigation-bar.html')
-//加载右侧面板群
-$('.common_right_panel').load('_right-panels.html');
-//加载文章列表
-$('.common_article_list').load('_article-list.html')
 
 //文章列表排序方式函数
 function article_list_sort(selector) {
