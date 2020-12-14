@@ -1,42 +1,21 @@
 <!--文章列表模块-->
-<div class="card clearfix">
-    <div class="card-header bg-white ">
+<div class="position-relative d-flex flex-column border">
+    <div class="card-header bg-white">
         <div class="float-sm-left">
-            <a class="btn p-0 mr-2 text-primary" onclick="change_article_scope('all')">全部(1100)</a>
-            <a class="btn p-0 mr-2" onclick="change_article_scope('blog')">博客(1000)</a>
-            <a class="btn p-0 mr-2" onclick="change_article_scope('note')">笔记(10)</a>
+            <a class="btn p-0 mr-2 text-primary disabled" onclick="change_home_article_scope(this,'all')">全部(1100)</a>
+            <a class="btn p-0 mr-2" onclick="change_home_article_scope(this,'blog')">博客(1000)</a>
+            <a class="btn p-0 mr-2" onclick="change_home_article_scope(this,'note')">笔记(10)</a>
         </div>
         <div class="float-sm-right">
-            <a class="btn p-0 text-primary disabled" onclick="article_list_sort(this)"
-               data-mark="visit"><small>按访问量排序</small></a>
-            <span class="ml-1 mr-1">/</span>
-            <a class="btn p-0 " onclick="article_list_sort(this)"
-               data-mark="time"><small>按时间排序</small></a>
+            <a class="btn p-0 text-primary disabled"
+               onclick="change_home_article_order(this,'time')"><small>按时间排序</small></a>
+            |
+            <a class="btn p-0 " onclick="change_home_article_order(this,'visit')"><small>按访问量排序</small></a>
         </div>
     </div>
-    <div class=" p-0 border-0" id="_article-list-area"></div>
-    <div class="card-footer" id="_article-list-pagination"></div>
+    <div class=" p-0" id="_home-article-list-area"></div>
+    <div class="card-footer bg-white" id="_home-article-list-pagination"></div>
 </div>
-<script>
-    let home_article_scope = 'all';
-    let home_article_order_type = 'time';
-    $(function () {
-        get_home_article_list(10, 1);
-    });
 
-    function get_home_article_list(size, page) {
-        $.get("../static/data/article_list.json?size=" + size + "&page=" + page + "&scope=" + home_article_scope + "&type=" + home_article_order_type,
-            function (data, status) {
-                if (status == "success") {
-                    load_article_list("#_article-list-area", data);
-                    load_pagination("#_article-list-pagination", data['current'], data['total']);
-                }
-            })
-    }
 
-    function change_article_scope(type) {
-        home_article_scope = type;
-        get_home_article_list(10, 1);
-    }
 
-</script>

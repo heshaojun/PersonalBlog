@@ -1,1 +1,20 @@
 <!--文章详情模块-->
+<div class="card">
+    <div class="card-header bg-white">
+        <div class="font-weight-bolder pb-2 _article-detail-title"></div>
+        <div class="ml-n1 mr-n1 w-100 p-1" style="border-radius: 2px;background-color: #D8D8D8">
+            <div class="_article-detail-info"></div>
+            <div class="_article-detail-labs"></div>
+            <div>
+                <small><span class="font-weight-lighter"><small>版权声明：标记为原创文章皆为作者原创作品，如有引用或是转载请标明出处  本文章地址：http://www.codejavahand.cn/article/detail/1123213</small></span></small>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-0 _article-detail-content">
+    </div>
+</div>
+<script>
+    $(function () {
+        load_article_detail("../static/data/article_detail.json");
+    })
+</script>

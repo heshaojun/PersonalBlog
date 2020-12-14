@@ -11,5 +11,23 @@ header {
 }
 
 ._after_header {
-    padding-top: 54px;
+    padding-top: 51px;
+}
+
+a.d-block {
+    text-decoration: none;
+    color: black;
+}
+
+a.d-block:hover {
+    color: black;
+}
+
+a.d-inline-block {
+    text-decoration: none;
+    color: black;
+}
+
+a.d-inline-block:hover {
+    color: black;
 }
