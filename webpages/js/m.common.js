@@ -1,7 +1,7 @@
 //滚动联动
 $('[scroll-linkage-target]').scroll(
     function () {
-        let target = "#" + $(this).attr("scroll-linkage-target");
+        let target = "" + $(this).attr("scroll-linkage-target");
         $(target).scrollTop($(this).scrollTop());
         $(target).scrollLeft($(this).scrollLeft());
     }
@@ -15,7 +15,11 @@ $('._aside-panels').load('_aside-panels.html');
 //加载备案信息
 $('._website-record').load('_website-record.html');
 //加载文章详情页
-$('._article-detail').load('_article-detail.html')
+$('._article-detail').load('_article-detail.html');
+
+showdown.setFlavor('github');
+let converter = new showdown.Converter({noHeaderId: true});
+
 //主页文章列表范围，全局状态变量
 let home_article_scope = 'all';
 //主页文章列表排列方式
@@ -223,5 +227,6 @@ function load_article_labs(data) {
 
 // 加载正文
 function load_article_content(data) {
-    $("._article-detail-content").text(data['content']);
+    let html = converter.makeHtml(data['content']);
+    $("._article-detail-content").html(html);
 }
