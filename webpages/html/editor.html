@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章编写</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/github-markdown.css">
+    <link rel="stylesheet" href="../css/m.common.css">
+</head>
+<body>
+<div class="row pl-md-4 pr-md-4">
+    <div class="col-12 bg-primary">1</div>
+    <div class="col-6 border overflow-auto p-2" style="height: 700px">
+        <div class="markdown-body bg-white border h-100 w-100" id="_markdown_show_area"></div>
+    </div>
+    <div class="col-6  border  overflow-auto p-2" style="height: 700px">
+        <textarea class="h-100 w-100" onchange="show_markdown(this)" onblur="show_markdown(this)" autofocus>
+        </textarea>
+    </div>
+    <div class="col-12 bg-primary">1</div>
+</div>
+<script type="application/javascript" src="../js/jquery-3.5.1.min.js"></script>
+<script type="application/javascript" src="../js/showdown.min.js"></script>
+<script type="application/javascript" src="../js/bootstrap.bundle.min.js"></script>
+<script type="application/javascript" src="../js/bootstrap.min.js"></script>
+<script type="application/javascript" src="../js/m.common.js"></script>
+<script>
+    function show_markdown(selector) {
+        let text = $(selector).val();
+        let html = converter.makeHtml(text);
+        $("#_markdown_show_area").html(html);
+    }
+</script>
+</body>
+</html>
