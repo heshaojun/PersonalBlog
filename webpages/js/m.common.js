@@ -6,6 +6,12 @@ $('[scroll-linkage-target]').scroll(
         $(target).scrollLeft($(this).scrollLeft());
     }
 );
+$(function () {
+    $(".sticky-top").find("div").bind("DOMSubtreeModified", function () {
+        let parent = $(this).parent(".sticky-top");
+        parent.css("top", $(window).height() - parent.height());
+    });
+});
 //加载导航栏
 $('._home-navigator').load('_home-navigator.html');
 //加载文章列表模块
