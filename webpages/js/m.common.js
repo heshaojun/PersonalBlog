@@ -22,6 +22,8 @@ $('._aside-panels').load('_aside-panels.html');
 $('._website-record').load('_website-record.html');
 //加载文章详情页
 $('._article-detail').load('_article-detail.html');
+//加载管理员导航栏
+$('._admin-navigator').load('_admin-navigator.html');
 
 showdown.setFlavor('github');
 let converter = new showdown.Converter({noHeaderId: true});

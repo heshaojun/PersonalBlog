@@ -7,29 +7,82 @@
     <link rel="stylesheet" href="../css/github-markdown.css">
     <link rel="stylesheet" href="../css/m.common.css">
 </head>
-<body>
-<div class="row pl-md-4 pr-md-4">
-    <div class="col-12 bg-primary">1</div>
-    <div class="col-6 border overflow-auto p-2" style="height: 700px">
-        <div class="markdown-body bg-white border h-100 w-100" id="_markdown_show_area"></div>
+<body class="position-absolute w-100">
+<div class="m-auto clearfix" style="width: 98%;">
+    <div class="col-lg-6 float-lg-left">
+        <div class="form-group row border p-1 mb-0">
+            <div class="col-sm-2 col-form-label text-lg-right">标题</div>
+            <input type="text" class="col-sm-9 form-control border-primary" id="_editor-article-title"
+                   placeholder="文章标题">
+        </div>
     </div>
-    <div class="col-6  border  overflow-auto p-2" style="height: 700px">
-        <textarea class="h-100 w-100" onchange="show_markdown(this)" onblur="show_markdown(this)" autofocus>
-        </textarea>
+    <div class="col-lg-6 float-lg-right">
+        <div class="form-group row border p-1 mb-0">
+            <div class="col-sm-2 col-form-label text-lg-right">分类</div>
+            <div class="col-sm-9 form-control border-secondary " id="_editor-article-classify-labs"></div>
+        </div>
     </div>
-    <div class="col-12 bg-primary">1</div>
+    <div class="col-lg-6 float-lg-left">
+        <div class="form-group row border p-1 mb-0">
+            <div class="col-sm-2 col-form-label text-lg-right">文章</div>
+            <div class="col-sm-9 form-control border-secondary" id="_editor-article-labs"></div>
+        </div>
+    </div>
+    <div class="col-lg-6 float-lg-right">
+        <div class="form-group row border p-1 mb-0">
+            <div class="col-sm-2 col-form-label text-lg-right">类型</div>
+            <div class="col-sm-9 form-control border-secondary" id="_editor-article-type"></div>
+        </div>
+    </div>
 </div>
+<div class="m-auto" style="width: 98%;">
+    <div class="position-relative w-100 mt-1 mb-1" style="height: 700px">
+        <div class="w-50 h-100 float-left m-auto border">
+            <div class="h-100 w-100 p-2 bg-white overflow-auto markdown-body" id="_markdown_show_area"></div>
+        </div>
+        <div class="w-50 h-100 float-right m-auto border">
+            <textarea class="h-100 w-100 p-2" id="_markdown-editable-area" autofocus>
+        </textarea>
+            <div class="dropright " style="position: absolute;top: 30%;">
+                <div class="dropright" style="margin-left: -50%">
+                    <button class="p-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item disabled" href="#">标题样式</a>
+                        <a class="dropdown-item disabled" href="#">段落样式</a>
+                        <a class="dropdown-item disabled" href="#">列表样式</a>
+                        <a class="dropdown-item disabled" href="#">区块样式</a>
+                        <a class="dropdown-item disabled" href="#">代码样式</a>
+                        <a class="dropdown-item disabled" href="#">链接样式</a>
+                        <a class="dropdown-item" href="#">图片插入</a>
+                        <a class="dropdown-item disabled" href="#">表格样式</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="m-auto" style="width: 98%;">
+    <div class="btn w-100 bg-primary mt-1 mb-2">提交</div>
+</div>
+
 <script type="application/javascript" src="../js/jquery-3.5.1.min.js"></script>
 <script type="application/javascript" src="../js/showdown.min.js"></script>
 <script type="application/javascript" src="../js/bootstrap.bundle.min.js"></script>
 <script type="application/javascript" src="../js/bootstrap.min.js"></script>
 <script type="application/javascript" src="../js/m.common.js"></script>
 <script>
-    function show_markdown(selector) {
-        let text = $(selector).val();
-        let html = converter.makeHtml(text);
-        $("#_markdown_show_area").html(html);
-    }
+    $(function () {
+        $("#_markdown_show_area").html(converter.makeHtml($(this).val()));
+        $("#_markdown-editable-area").bind('change', function () {
+            $("#_markdown_show_area").html(converter.makeHtml($(this).val()));
+        });
+        $("#_markdown-editable-area").bind('blur', function () {
+            $("#_markdown_show_area").html(converter.makeHtml($(this).val()));
+        });
+    });
+
 </script>
 </body>
 </html>
