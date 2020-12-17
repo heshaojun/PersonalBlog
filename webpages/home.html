@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>博客首页</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/m.common.css">
+</head>
+<body>
+<header class="w-100  fixed-top ">
+    <!--    导航栏-->
+    <div class="container-xl _navigator-bar">
+    </div>
+</header>
+<article class="container-xl _after_header">
+    <div class="row flex-row-reverse">
+        <!-- 文章内容显示模块-->
+        <article class="col-md-9   p-0 pt-1 pb-1  sticky-top">
+            <div class="_content-area"></div>
+            <!--    底部备案信息-->
+            <div class="_website-record"></div>
+        </article>
+        <!--    左侧面板-->
+        <aside class="col-md-3 align-self-start p-0  pt-1 pb-1  sticky-top">
+            <div class="_aside-panels"></div>
+        </aside>
+    </div>
+</article>
+<script type="application/javascript" src="js/jquery-3.5.1.min.js"></script>
+<script type="application/javascript" src="js/showdown.min.js"></script>
+<script type="application/javascript" src="js/bootstrap.bundle.min.js"></script>
+<script type="application/javascript" src="js/bootstrap.min.js"></script>
+<script type="application/javascript" src="js/m.common.js"></script>
+<script>
+    main_nav_btn_index = 1;
+    //加载导航栏
+    $('._navigator-bar').load('html/_main-navigator.html');
+    //加载文章列表模块
+    $('._content-area').load('html/_article-list.html');
+    //加载左边面板
+    $('._aside-panels').load('html/_aside-panels.html');
+    //加载备案信息
+    $('._website-record').load('html/_website-record.html');
+</script>
+</body>
+</html>

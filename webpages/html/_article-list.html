@@ -1,0 +1,61 @@
+<!--文章列表模块-->
+<div class="position-relative d-flex flex-column border">
+    <div class="card-header bg-white">
+        <div class="float-sm-left">
+            <a class="btn p-0 mr-2 text-primary disabled" onclick="change_home_article_scope(this,'all')">全部(1100)</a>
+            <a class="btn p-0 mr-2" onclick="change_home_article_scope(this,'blog')">博客(1000)</a>
+            <a class="btn p-0 mr-2" onclick="change_home_article_scope(this,'note')">笔记(10)</a>
+        </div>
+        <div class="float-sm-right">
+            <a class="btn p-0 text-primary disabled"
+               onclick="change_home_article_order(this,'time')"><small>按时间排序</small></a>
+            |
+            <a class="btn p-0 " onclick="change_home_article_order(this,'visit')"><small>按访问量排序</small></a>
+        </div>
+    </div>
+    <div class=" p-0" id="_home-article-list-area"></div>
+    <div class="card-footer bg-white" id="_home-article-list-pagination"></div>
+</div>
+<script>
+    //初始化主页文章列表
+    $(function () {
+        get_home_article_list(10, 1);
+    });
+
+    //获取文章列表，加载文章列表和文章列表分页栏
+    function get_home_article_list(size, page) {
+        $.get("data/article_list.json?size=" + size + "&page=" + page + "&scope=" + home_article_scope + "&type=" + home_article_order_type,
+            function (data, status) {
+                if (status == "success") {
+                    load_article_list("#_home-article-list-area", data);
+                    load_pagination("#_home-article-list-pagination", data['current'], data['total'], function (index) {
+                        get_home_article_list(size, index);
+                    });
+                }
+            })
+    }
+
+    //主页文章列表更改文章范围
+    function change_home_article_scope(selector, type) {
+        if (selector && type) {
+            let bros = $(selector).parent('div').children('a');
+            for (let i = 0; i < bros.length; i++) {
+                $(bros[i]).removeClass("text-primary disabled");
+            }
+            $(selector).addClass("text-primary disabled");
+            home_article_scope = type;
+            get_home_article_list(10, 1);
+        }
+    }
+
+    //主页文章排列方式更改函数
+    function change_home_article_order(selector, type) {
+        $(selector).parent("div").find("a.disabled").removeClass("text-primary disabled");
+        $(selector).addClass("text-primary disabled");
+        home_article_order_type = type;
+    }
+
+</script>
+
+
+
