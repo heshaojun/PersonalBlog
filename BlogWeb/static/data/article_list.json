@@ -1,9 +1,9 @@
 {
   "size": 10,
-  "current": 2,
+  "current": 1,
   "count": 5,
   "order": "visits",
-  "total": 20,
+  "total": 1,
   "list": [
     {
       "visits": 10000,
