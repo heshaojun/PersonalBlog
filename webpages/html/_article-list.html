@@ -1,10 +1,8 @@
 <!--文章列表模块-->
 <div class="position-relative d-flex flex-column border">
     <div class="card-header bg-white">
-        <div class="float-sm-left">
-            <a class="btn p-0 mr-2 text-primary disabled" onclick="change_home_article_scope(this,'all')">全部(1100)</a>
-            <a class="btn p-0 mr-2" onclick="change_home_article_scope(this,'blog')">博客(1000)</a>
-            <a class="btn p-0 mr-2" onclick="change_home_article_scope(this,'note')">笔记(10)</a>
+        <div class="float-sm-left" id="_article_list_header">
+
         </div>
         <div class="float-sm-right">
             <a class="btn p-0 text-primary disabled"
@@ -19,20 +17,56 @@
 <script>
     //初始化主页文章列表
     $(function () {
-        get_home_article_list(10, 1);
-    });
+        $.get("data/article_list.json?size=10&page=1&scope=" + articleScope + "&order=" + articleOrderBy + "&mark=" + classifyMark, function (data, status) {
+            if (status == 'success') {
+                if (data['result'] == 'success') {
+                    let result_data = data['data'];
+                    if (result_data.length < 1) {
+                        $("#_home-article-list-area").text("没有相关的数据！");
+                    } else {
+                        if (classifyMark.startsWith('clab_')) {
+                            $("#_article_list_header").text(
+                                '分类标签：' + classifyMark.substring(5) + '(' + result_data['articleCount'] + ')'
+                            );
+                        } else if (classifyMark.startsWith('alab_')) {
+                            $("#_article_list_header").text(
+                                '文章标签：' + classifyMark.substring(5) + '(' + result_data['articleCount'] + ')'
+                            );
+                        } else if (classifyMark.startsWith('kw_')) {
+                            $("#_article_list_header").text(
+                                '搜索关键字：' + classifyMark.substring(3) + '(' + result_data['articleCount'] + ')'
+                            );
+                        } else {
+                            $("#_article_list_header").html('<a class="btn p-0 mr-2 text-primary disabled" onclick="change_home_article_scope(this,"all")">全部(' + result_data['articleCount'] + ')</a>\n' +
+                                '            <a class="btn p-0 mr-2" onclick="change_home_article_scope(this,"blog")">博客(' + result_data['blogCount'] + ')</a>\n' +
+                                '            <a class="btn p-0 mr-2" onclick="change_home_article_scope(this,"note")">笔记(' + result_data['noteCount'] + ')</a>');
+                        }
+                    }
+                    get_home_article_list(10, 1);
+                }
+            }
+        });
+    })
+    ;
 
     //获取文章列表，加载文章列表和文章列表分页栏
     function get_home_article_list(size, page) {
-        $.get("data/article_list.json?size=" + size + "&page=" + page + "&scope=" + home_article_scope + "&type=" + home_article_order_type,
+        $.get("data/article_list.json?size=" + size + "&page=" + page + "&scope=" + articleScope + "&order=" + articleOrderBy + "&key=" + classifyMark,
             function (data, status) {
                 if (status == "success") {
-                    load_article_list("#_home-article-list-area", data);
-                    load_pagination("#_home-article-list-pagination", data['current'], data['total'], function (index) {
-                        get_home_article_list(size, index);
-                    });
+                    if (data['result'] == 'success') {
+                        let result_data = data['data'];
+                        if (result_data.length < 1) {
+                            $("#_home-article-list-area").text("没有数据");
+                        } else {
+                            load_article_list("#_home-article-list-area", result_data);
+                            loadPagination("#_home-article-list-pagination", result_data['currentPage'], result_data['totalPage'], function (index) {
+                                get_home_article_list(size, index);
+                            });
+                        }
+                    }
                 }
-            })
+            });
     }
 
     //主页文章列表更改文章范围
@@ -43,7 +77,7 @@
                 $(bros[i]).removeClass("text-primary disabled");
             }
             $(selector).addClass("text-primary disabled");
-            home_article_scope = type;
+            articleScope = type;
             get_home_article_list(10, 1);
         }
     }
@@ -52,7 +86,7 @@
     function change_home_article_order(selector, type) {
         $(selector).parent("div").find("a.disabled").removeClass("text-primary disabled");
         $(selector).addClass("text-primary disabled");
-        home_article_order_type = type;
+        articleOrderBy = type;
     }
 
 </script>

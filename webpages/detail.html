@@ -18,7 +18,7 @@
         <!-- 文章内容显示模块-->
         <article class="col-md-12 align-self-start  p-0 pt-1 pb-1  sticky-top">
             <!--文章详情模块-->
-            <div class="card">
+            <div class="card _content-area">
                 <div class="card-header bg-white">
                     <div class="font-weight-bolder pb-2 _article-detail-title"></div>
                     <div class="ml-n1 mr-n1 w-100 p-1" style="border-radius: 2px;background-color: #D8D8D8">
@@ -46,7 +46,7 @@
 <script type="application/javascript" src="js/bootstrap.min.js"></script>
 <script type="application/javascript" src="js/m.common.js"></script>
 <script>
-    main_nav_btn_index = -1;
+    mainNavBtnIndex = -1;
     $(function () {
         //加载导航栏
         $('._navigator-bar').load('html/_main-navigator.html');
@@ -75,6 +75,12 @@
         load_article_content(data);
     })
 
+    //收索函数
+    function searchArticles(key) {
+        classifyMark = "kw_" + key;
+        //加载文章列表模块
+        $('._content-area').load('html/_article-list.html');
+    }
 
     //加载文章信息
     function load_article_detail_info(data) {

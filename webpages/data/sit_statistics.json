@@ -1,0 +1,12 @@
+{
+  "code": 200,
+  "result": "success",
+  "msg": "ok",
+  "data": {
+    "visits": 1000,
+    "articles": 12330,
+    "blogs": 123,
+    "notes": 3443,
+    "comments": 3434
+  }
+}

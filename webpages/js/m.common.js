@@ -1,5 +1,11 @@
 //全局变量
-let main_nav_btn_index = 1;
+let mainNavBtnIndex = 1;
+//主页文章列表范围，全局状态变量
+let articleScope = 'all'; // all  blog  note
+//主页文章列表排列方式
+let articleOrderBy = 'time'; //time visit
+//分类标识
+let classifyMark = 'none';//clab_tests  分类标签  alab_cxx  文章标签 kw_ttt
 //滚动栏优化
 $(function () {
     $(".sticky-top").find("div").bind("DOMSubtreeModified", function () {
@@ -12,10 +18,6 @@ $(function () {
 showdown.setFlavor('github');
 let converter = new showdown.Converter({noHeaderId: true});
 
-//主页文章列表范围，全局状态变量
-let home_article_scope = 'all';
-//主页文章列表排列方式
-let home_article_order_type = 'time';
 
 //加载文章列表
 function load_article_list(selector, data) {
@@ -29,7 +31,7 @@ function load_article_list(selector, data) {
         if (item['summary']) {
             div += '        <div><span>' + item['summary'] + '</span></div>\n';
             div += '        <div>\n' +
-                '            <span class="small">' + item['create_time'] + '</span>\n' +
+                '            <span class="small">' + item['createTime'] + '</span>\n' +
                 '            <span class="ml-3 small"><img class="mr-1" src="icon/watch_icon.png" height="20px">' + item['visits'] + '</span>\n' +
                 '            <span class="ml-3 small"><img class="mr-1" src="icon/comments_icon.png" height="20px">' + item['comments'] + '</span>\n' +
                 '        </div>\n'
@@ -42,7 +44,7 @@ function load_article_list(selector, data) {
 }
 
 //加分页栏
-function load_pagination(selector, current, total, callback) {
+function loadPagination(selector, current, total, callback) {
     let html = '<ul class="pagination justify-content-center mb-0">\n';
     if (current == 1) {
         html += '<li class="page-item disabled">\n' +
@@ -123,6 +125,22 @@ function load_pagination(selector, current, total, callback) {
             callback(index);
         }
     });
+}
+
+//收索函数
+function searchArticles(key) {
+    classifyMark = "kw_" + key;
+    //加载文章列表模块
+    $('._content-area').load('html/_article-list.html');
+}
+
+//标签按钮点击事件
+function labBtnClick(selector, type) {
+    let lab = $(selector).text();
+    if (type && lab) {
+        classifyMark = type + "_" + lab;
+        $('._content-area').load('html/_article-list.html');
+    }
 }
 
 
