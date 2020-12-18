@@ -78,16 +78,15 @@
             }
         });
         //加载日门文章
-        $.get('data/hot_article.json', function (data, status) {
+        $.get('data/hot_articles.json', function (data, status) {
             if (status == 'success') {
                 if (data['result'] == 'success') {
                     let result_data = data['data'];
                     if (result_data) {
                         let html = '';
-                        let list = result_data['list'];
-                        for (let i = 0; i < list.length; i++) {
-                            html += '        <a class="d-block w-100  border-top  ml-1 mr-1 pl-3 pr-3 pt-1 pb-1" href="article/detail/' + list[i]['id'] + '"\n' +
-                                '           target="_blank">' + list[i]['title'] + '</a>'
+                        for (let i = 0; i < result_data.length; i++) {
+                            html += '        <a class="d-block w-100  border-top  ml-1 mr-1 pl-3 pr-3 pt-1 pb-1" href="article/detail/' + result_data[i]['id'] + '"\n' +
+                                '           target="_blank">' + result_data[i]['title'] + '</a>'
                         }
                         $("#_hot-articles").html(html);
                     }
@@ -95,16 +94,15 @@
             }
         });
         //加载最新文章
-        $.get('data/new_article', function (data, status) {
+        $.get('data/new_articles.json', function (data, status) {
             if (status == 'success') {
                 if (data['result'] == 'success') {
                     let result_data = data['data'];
                     if (result_data) {
                         let html = '';
-                        let list = result_data['list'];
-                        for (let i = 0; i < list.length; i++) {
-                            html += '        <a class="d-block w-100  border-top  ml-1 mr-1 pl-3 pr-3 pt-1 pb-1" href="article/detail/' + list[i]['id'] + '"\n' +
-                                '           target="_blank">' + list[i]['title'] + '</a>'
+                        for (let i = 0; i < result_data.length; i++) {
+                            html += '        <a class="d-block w-100  border-top  ml-1 mr-1 pl-3 pr-3 pt-1 pb-1" href="article/detail/' + result_data[i]['id'] + '"\n' +
+                                '           target="_blank">' + result_data[i]['title'] + '</a>'
                         }
                         $("#_new-articles").html(html);
                     }
@@ -112,15 +110,14 @@
             }
         });
         //加载分类标签
-        $.get('data/classify_labs', function (data, status) {
+        $.get('data/classify_labs.json', function (data, status) {
             if (status == 'success') {
                 if (data['result'] == 'success') {
-                    let result_data = dat['data'];
+                    let result_data = data['data'];
                     if (result_data) {
                         let html = '';
-                        let list = result_data['list'];
-                        for (let i = 0; i < list.length; i++) {
-                            html += '<small><span class="btn border pt-0 pb-0 pr-1 pl-1" onclick="labBtnClick(this,"clab")">' + list[i]['lab'] + '</span></small>';
+                        for (let i = 0; i < result_data.length; i++) {
+                            html += '<small><span class="btn border pt-0 pb-0 pr-1 pl-1" onclick="labBtnClick(this,\'clab\')">' + result_data[i] + '</span></small>';
                             $("#_classify-labs").html(html);
                         }
                     }
@@ -128,15 +125,14 @@
             }
         });
         //加载标签云
-        $.get('data/article_labs', function (data, status) {
+        $.get('data/article_labs.json', function (data, status) {
             if (status == 'success') {
                 if (data['result'] == 'success') {
-                    let result_data = dat['data'];
+                    let result_data = data['data'];
                     if (result_data) {
                         let html = '';
-                        let list = result_data['list'];
-                        for (let i = 0; i < list.length; i++) {
-                            html += '<small><span class="btn border pt-0 pb-0 pr-1 pl-1" onclick="labBtnClick(this,"alab")">' + list[i]['lab'] + '</span></small>';
+                        for (let i = 0; i < result_data.length; i++) {
+                            html += '<small><span class="btn border pt-0 pb-0 pr-1 pl-1" onclick="labBtnClick(this,\'clab\')">' + result_data[i] + '</span></small>';
                             $("#_article-labs").html(html);
                         }
                     }
@@ -144,7 +140,7 @@
             }
         });
         //加载标签云
-        $.get('data/new_comments', function (data, status) {
+        $.get('data/new_comments.json', function (data, status) {
             if (status == 'success') {
                 if (data['result'] == 'success') {
                     let result_data = dat['data'];
