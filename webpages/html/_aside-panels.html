@@ -56,7 +56,7 @@
 <!--标签云-->
 <div class="card mt-1 ">
     <div class="card-header">标签云</div>
-    <div class="card-body p-0 pb-2" id="_article-labs">
+    <div class="card-body p-0 pl-2 pr-2 flex-row" id="_article-labs">
     </div>
 </div>
 
@@ -117,7 +117,7 @@
                     if (result_data) {
                         let html = '';
                         for (let i = 0; i < result_data.length; i++) {
-                            html += '<small><span class="btn border pt-0 pb-0 pr-1 pl-1" onclick="labBtnClick(this,\'clab\')">' + result_data[i] + '</span></small>';
+                            html += '<small><span class="btn border pt-0 pb-0 pr-1 pl-1 m-1" onclick="labBtnClick(this,\'clab\')">' + result_data[i] + '</span></small>';
                             $("#_classify-labs").html(html);
                         }
                     }
@@ -132,7 +132,7 @@
                     if (result_data) {
                         let html = '';
                         for (let i = 0; i < result_data.length; i++) {
-                            html += '<small><span class="btn border pt-0 pb-0 pr-1 pl-1" onclick="labBtnClick(this,\'clab\')">' + result_data[i] + '</span></small>';
+                            html += '<small><span class="btn border pt-0 pb-0 pr-1 pl-1 m-1" onclick="labBtnClick(this,\'alab\')">' + result_data[i] + '</span></small>';
                             $("#_article-labs").html(html);
                         }
                     }
@@ -143,12 +143,11 @@
         $.get('data/new_comments.json', function (data, status) {
             if (status == 'success') {
                 if (data['result'] == 'success') {
-                    let result_data = dat['data'];
+                    let result_data = data['data'];
                     if (result_data) {
                         let html = '';
-                        let list = result_data['list'];
-                        for (let i = 0; i < list.length; i++) {
-                            html += '<a class="d-block w-100  border-top  ml-1 mr-1 pl-3 pr-3 pt-1 pb-1" href="board.html">' + list[i] + '</a>';
+                        for (let i = 0; i < result_data.length; i++) {
+                            html += '<a class="d-block w-100  border-top  ml-1 mr-1 pl-3 pr-3 pt-1 pb-1" href="board.html">' + result_data[i] + '</a>';
                             $("#_new-comments").html(html);
                         }
                     }

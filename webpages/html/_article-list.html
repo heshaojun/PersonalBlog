@@ -26,15 +26,15 @@
                     } else {
                         if (classifyMark.startsWith('clab_')) {
                             $("#_article_list_header").text(
-                                '分类标签：' + classifyMark.substring(5) + '(' + result_data['articleCount'] + ')'
+                                '分类标签：' + classifyMark.substring(5) + ' (' + result_data['articleCount'] + ')'
                             );
                         } else if (classifyMark.startsWith('alab_')) {
                             $("#_article_list_header").text(
-                                '文章标签：' + classifyMark.substring(5) + '(' + result_data['articleCount'] + ')'
+                                '文章标签：' + classifyMark.substring(5) + ' (' + result_data['articleCount'] + ')'
                             );
                         } else if (classifyMark.startsWith('kw_')) {
                             $("#_article_list_header").text(
-                                '搜索关键字：' + classifyMark.substring(3) + '(' + result_data['articleCount'] + ')'
+                                '搜索关键字：' + classifyMark.substring(3) + ' (' + result_data['articleCount'] + ')'
                             );
                         } else {
                             $("#_article_list_header").html('<a class="btn p-0 mr-2 text-primary disabled" onclick="change_home_article_scope(this,"all")">全部(' + result_data['articleCount'] + ')</a>\n' +

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest
  * @author heshaojun* @date 2020/12/17
  * @description 登陆过滤器，实现管理员登陆
  */
-@WebFilter(urlPatterns = "/admin/*")
+//@WebFilter(urlPatterns = "/admin/*")
 class LoginFilter implements Filter {
     //@Autowired
     ILoginService loginService;

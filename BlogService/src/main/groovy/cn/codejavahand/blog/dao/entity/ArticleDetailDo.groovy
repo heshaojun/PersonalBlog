@@ -2,11 +2,23 @@ package cn.codejavahand.blog.dao.entity
 
 /**
  * @author heshaojun* @date 2020/12/17
- * @description TODO
+ * @description 文章详情实体
  */
 class ArticleDetailDo {
     String id //文章id
     String title//文章标题
-    String summery//文章摘要
+    String summary//文章摘要
+    String original//原创标示
     String content//文章内容
+    String status//文章状态 online已经发布，offline未发布
+    String type//文章类型 blog博客 note笔记
+    ArticleDetailDo(String id, String title, String summary, String original, String content, String status, String type) {
+        this.id = id
+        this.title = title
+        this.summary = summary
+        this.original = original
+        this.content = content
+        this.status = status
+        this.type = type
+    }
 }
