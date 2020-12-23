@@ -3,8 +3,8 @@ package cn.codejavahand.blog.service.impl
 import cn.codejavahand.blog.config.SysConfig
 import cn.codejavahand.blog.dao.entity.ArticleDetailDo
 import cn.codejavahand.blog.dao.repo.IArticleDetailRepo
-import cn.codejavahand.blog.dao.vo.RestRespVo
 import cn.codejavahand.blog.service.IArticleEditorService
+import cn.codejavahand.blog.service.vo.RestRespVo
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,18 +26,25 @@ class ArticleEditorService implements IArticleEditorService {
         respVo.setResult("fail")
         if (title == null || title == "" || summary.replaceAll(" ", '') == "") {
             respVo.setMsg("文章标题为空")
+            logger.info "文章标题为空"
         } else if (type != 'note' && type != 'blog') {
             respVo.setMsg('文章类型异常')
+            logger.info "文章类型不存在"
         } else if (summary == null || summary == "" || summary.replaceAll(" ", "") == "") {
             respVo.setMsg("文章摘要为空")
+            logger.info "文章摘要为空"
         } else if (classifyLabs == null || classifyLabs == "" || classifyLabs.replaceAll(" ", "") == "") {
             respVo.setMsg("分类标签为空")
+            logger.info "分类标签为空"
         } else if (articleLabs == null || articleLabs == "" || articleLabs.replaceAll(" ", "") == "") {
             respVo.setMsg("文章标签为空")
+            logger.info "文章标签为空"
         } else if (origin != 'yes' && origin != 'no') {
             respVo.setMsg("原创标示异常")
+            logger.info "原则标志为空"
         } else if (content == null || content == "" || content.replaceAll(" ", "") == "") {
             respVo.setMsg("文章内容为空")
+            logger.info "文章内容为空"
         } else {
             long id = new Date().getTime()
             File file = new File(sysConfig.getRootPath() + "/" + id)
@@ -54,8 +61,10 @@ class ArticleEditorService implements IArticleEditorService {
                     respVo.setCode(200)
                     respVo.setResult('success')
                     respVo.setMsg('ok')
+                    logger.info "添加文章成功"
                 } catch (Exception e) {
                     e.printStackTrace()
+                    logger.error e
                 }
             }
         }

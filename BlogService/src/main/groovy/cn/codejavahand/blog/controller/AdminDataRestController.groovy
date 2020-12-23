@@ -1,7 +1,7 @@
 package cn.codejavahand.blog.controller
 
-import cn.codejavahand.blog.dao.vo.RestRespVo
 import cn.codejavahand.blog.service.IArticleEditorService
+import cn.codejavahand.blog.service.vo.RestRespVo
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import org.springframework.beans.factory.annotation.Autowired

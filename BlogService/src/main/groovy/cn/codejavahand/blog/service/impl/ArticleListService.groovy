@@ -1,7 +1,7 @@
 package cn.codejavahand.blog.service.impl
 
-import cn.codejavahand.blog.dao.vo.RestRespVo
 import cn.codejavahand.blog.service.IArticleListService
+import cn.codejavahand.blog.service.vo.RestRespVo
 import org.springframework.stereotype.Service
 
 @Service

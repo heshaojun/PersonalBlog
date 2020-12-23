@@ -1,6 +1,7 @@
 package cn.codejavahand.blog.service
 
-import cn.codejavahand.blog.dao.vo.RestRespVo
+import cn.codejavahand.blog.service.vo.RestRespVo
+
 
 interface IArticleEditorService {
     /**
