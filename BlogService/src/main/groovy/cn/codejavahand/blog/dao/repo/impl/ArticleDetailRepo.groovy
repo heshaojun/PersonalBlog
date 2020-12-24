@@ -50,7 +50,7 @@ class ArticleDetailRepo implements IArticleDetailRepo {
     }
 
     @Override
-    @CacheEvict(value = "articleDetail", key = "#id")
+    @CacheEvict(value = ["articleInfoList", "articleInfoListByTime", "articleInfoListByVisit", "articleInfoListByTimeAnScop", "articleInfoListByVisitAnScop", "articleDetail"], key = "#id", allEntries = true)
     void update(String id, ArticleDetailDo articleDetailDo) {
         logger.info "开始更新文章"
         String path = sysConfig.getRootPath() + "/" + id + "/"
@@ -87,6 +87,7 @@ class ArticleDetailRepo implements IArticleDetailRepo {
     }
 
     @Override
+    @CacheEvict(value = ["articleInfoList", "articleIdList", "articleInfoListByTime", "articleInfoListByVisit", "articleInfoListByTimeAnScop", "articleInfoListByVisitAnScop"])
     void addArticle(String id, ArticleDetailDo articleDetailDo) {
         logger.info "开始存储文章"
         String path = sysConfig.getRootPath() + "/" + id + "/"
