@@ -11,4 +11,6 @@ interface IArticleCommentRepo {
     void addOneComment(String id, String commentId, ArticleCommentDo articleCommentDo)
 
     void removeOneComment(String id, String commentId)
+
+    List<String> countId(String id)
 }

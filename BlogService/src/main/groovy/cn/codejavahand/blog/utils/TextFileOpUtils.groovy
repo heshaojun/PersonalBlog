@@ -7,12 +7,12 @@ package cn.codejavahand.blog.utils
 class TextFileOpUtils {
     /**
      * 获取文件对象
-     * @param filePath
+     * @param fileAbsPath
      * @param create
      * @return
      */
-    private static File getFile(String filePath, boolean create = false) {
-        File file = new File(filePath)
+    private static File getFile(String fileAbsPath, boolean create = false) {
+        File file = new File(fileAbsPath)
         if (file.exists()) {
             if (!file.isFile()) {
                 if (create) {
@@ -26,30 +26,46 @@ class TextFileOpUtils {
         }
         file
     }
-
-    static void appendContent(String filePath, String content) {
-        FileWriter fileWriter = new FileWriter(getFile(filePath, true), true)
+/**
+ *
+ * @param fileAbsPath
+ * @param content
+ * @param append
+ * @param create
+ */
+    static void write(String fileAbsPath, String content, boolean append = false, boolean create = false) {
+        FileWriter fileWriter = new FileWriter(getFile(fileAbsPath, create), append)
         fileWriter.withWriter {
             it.write(content)
         }
 
     }
 
-    static void coverContent(String filePath, String content) {
-        FileWriter fileWriter = new FileWriter(getFile(filePath, false))
-        fileWriter.withWriter {
-            it.write(content)
-        }
-    }
-
-    static String readAll(String filePath) {
-        FileReader fileReader = new FileReader(getFile(filePath))
+    /**
+     * 读取全部文本文件全部内容
+     * @param fileAbsPath
+     * @return
+     */
+    static String readAllString(String fileAbsPath) {
+        FileReader fileReader = new FileReader(getFile(fileAbsPath))
         StringBuilder builder = new StringBuilder();
         fileReader.withReader {
             it.readLines().forEach({
                 builder.append(it.toString() + "\n")
             })
             builder.toString()
+        }
+    }
+    /**
+     *
+     * @param fileAbsPath
+     * @return
+     */
+    static List<String> readAllLine(String fileAbsPath) {
+        FileReader fileReader = new FileReader(getFile(fileAbsPath))
+        StringBuilder builder = new StringBuilder();
+        fileReader.withReader {
+            it.readLines()
         }
     }
 

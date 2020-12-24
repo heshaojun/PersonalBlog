@@ -12,4 +12,7 @@ class ComConst {
     static final String ARTICLE_SUMMARY_FILE_NAME = "summary.txt" //文件摘要
     static final String ARTICLE_STATUS_FILE_NAME = "status.txt" //文章状态文件名称
     static final String ARTICLE_TYPE_FILE_NAME = "type.txt" //文章类型文件名称
+    static final String ARTICLE_ORIGIN_FILE_NAME = "origin.txt" //文章原创信息文件名称
+
+    static final String ARTICLE_COMMENTS_PATH = "comments"//文章评论相对路径
 }

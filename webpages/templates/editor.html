@@ -87,12 +87,12 @@
             <div class="col-sm-3 form-control border-0" id="_editor-article-origin">
                 <div class="radio d-inline-block">
                     <label>
-                        <input type="radio" name="optionsRadios" value="yes" checked>原创
+                        <input type="radio" name="optionsRadios1" value="yes" checked>原创
                     </label>
                 </div>
                 <div class="radio d-inline-block ml-3">
                     <label>
-                        <input type="radio" name="optionsRadios" value="no">非原创
+                        <input type="radio" name="optionsRadios1" value="no">非原创
                     </label>
                 </div>
             </div>
@@ -246,10 +246,10 @@
         let classifyLabs = "";
         let articleLabs = "";
         for (let i = 0; i < classifyList.length; i++) {
-            classifyLabs += "|" + $(classifyList[i]).text();
+            classifyLabs += $(classifyList[i]).text() + "\n";
         }
         for (let i = 0; i < articleList.length; i++) {
-            articleLabs += "|" + $(classifyList[i]).text();
+            articleLabs += $(classifyList[i]).text() + "\n";
         }
         let content = $("#_markdown-editable-area").val();
         let data = {

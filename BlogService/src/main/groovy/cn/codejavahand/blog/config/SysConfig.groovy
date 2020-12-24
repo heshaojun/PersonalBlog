@@ -8,5 +8,5 @@ import org.springframework.cache.annotation.EnableCaching
 @EnableCaching
 @ConfigurationProperties(prefix = "sys.conf")
 class SysConfig {
-    String rootPath = "data"
+    String rootPath
 }

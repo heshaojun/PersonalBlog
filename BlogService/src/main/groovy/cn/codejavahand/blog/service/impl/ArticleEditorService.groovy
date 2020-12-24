@@ -39,33 +39,32 @@ class ArticleEditorService implements IArticleEditorService {
         } else if (articleLabs == null || articleLabs == "" || articleLabs.replaceAll(" ", "") == "") {
             respVo.setMsg("文章标签为空")
             logger.info "文章标签为空"
-        } else if (origin != 'yes' && origin != 'no') {
+        } else if (original != 'yes' && original != 'no') {
             respVo.setMsg("原创标示异常")
             logger.info "原则标志为空"
         } else if (content == null || content == "" || content.replaceAll(" ", "") == "") {
             respVo.setMsg("文章内容为空")
             logger.info "文章内容为空"
         } else {
-            long id = new Date().getTime()
+            String id = new Date().getTime().toString()
             File file = new File(sysConfig.getRootPath() + "/" + id)
             while (true) {
                 if (file.exists()) {
-                    id = new Date().getTime()
+                    id = new Date().getTime().toString()
                     file = new File(sysConfig.getRootPath() + "/" + id)
                 } else {
                     file.mkdirs()
                     break
                 }
-                try {
-                    articleDetailRepo.addArticle(id, new ArticleDetailDo(id, title, summary, original, content, "offline", type))
-                    respVo.setCode(200)
-                    respVo.setResult('success')
-                    respVo.setMsg('ok')
-                    logger.info "添加文章成功"
-                } catch (Exception e) {
-                    e.printStackTrace()
-                    logger.error e
-                }
+            }
+            try {
+                articleDetailRepo.addArticle(id, new ArticleDetailDo(id, title, summary, original, content, "offline", type, classifyLabs, articleLabs))
+                respVo.setCode(200)
+                respVo.setResult('success')
+                respVo.setMsg('ok')
+                logger.info "添加文章成功"
+            } catch (Exception e) {
+                e.printStackTrace()
             }
         }
         respVo
