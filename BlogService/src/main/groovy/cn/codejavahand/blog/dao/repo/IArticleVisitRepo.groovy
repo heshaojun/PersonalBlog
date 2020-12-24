@@ -1,7 +1,7 @@
 package cn.codejavahand.blog.dao.repo
 
 interface IArticleVisitRepo {
-    IArticleVisitRepo getById(String id)
+    int getById(String id)
 
-    void update(String Id, IArticleVisitRepo articleVisitRepo)
+    int addOne(String id)
 }

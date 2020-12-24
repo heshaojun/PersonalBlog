@@ -5,7 +5,15 @@ package cn.codejavahand.blog.dao.entity
 class ArticleCommentDo {
     String id //文章id
     String commentId//
-    long commentDate//评论时间
     String userName//用户名称
     String commentMsg//评论信息
+    ArticleCommentDo() {
+    }
+
+    ArticleCommentDo(String id, String commentId, String userName, String commentMsg) {
+        this.id = id
+        this.commentId = commentId
+        this.userName = userName
+        this.commentMsg = commentMsg
+    }
 }

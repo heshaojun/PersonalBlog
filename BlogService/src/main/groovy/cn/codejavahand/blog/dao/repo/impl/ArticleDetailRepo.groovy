@@ -34,7 +34,7 @@ class ArticleDetailRepo implements IArticleDetailRepo {
             //存储文章标题
             articleDetailDo.title = TextFileOpUtils.readAllString path + ComConst.ARTICLE_TITLE_FILE_NAME
             //存储文章摘要
-            articleDetailDo.summary TextFileOpUtils.readAllString path +ComConst.ARTICLE_SUMMARY_FILE_NAME
+            articleDetailDo.summary = TextFileOpUtils.readAllString path + ComConst.ARTICLE_SUMMARY_FILE_NAME
             //存储文章类型
             articleDetailDo.type = TextFileOpUtils.readAllString path + ComConst.ARTICLE_TYPE_FILE_NAME
             //存储文章原创信息
@@ -78,6 +78,7 @@ class ArticleDetailRepo implements IArticleDetailRepo {
             //存储文章状态
             if (articleDetailDo.status != null && !"" != articleDetailDo.status && articleDetailDo.status.replaceAll(" ", "") != "")
                 TextFileOpUtils.write path + ComConst.ARTICLE_STATUS_FILE_NAME, articleDetailDo.status, false, true
+            TextFileOpUtils.write path + ComConst.VISITS_COUNT_FILE_NAME, "o", false, true
         } catch (Exception e) {
             e.printStackTrace()
             logger.error "更新文章错误"
