@@ -26,7 +26,8 @@ class ArticleLabsRepo implements IArticleLabsRepo {
 
     @Override
     @Cacheable(value = "articleLabs", key = "#id")
-    List<String> getById(String id) {
-        TextFileOpUtils.readAllLine sysConfig.rootPath + "/$id/${CommonConst.LABS_FILE_NAME}"
+    String getById(String id) {
+        TextFileOpUtils.readAllString sysConfig.rootPath + "/$id/${CommonConst.LABS_FILE_NAME}"
     }
+
 }

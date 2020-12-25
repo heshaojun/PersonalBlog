@@ -99,6 +99,26 @@ class ArticleEditorService implements IArticleEditorService {
      * @return
      */
     private RestRespVo updateArticle(String id, String title, String summary, String type, String classifyLabs, String articleLabs, String content, String original) {
+        RestRespVo respVo = new RestRespVo()
+        respVo.setCode(500)
+        respVo.setResult("fail")
+        if (title != null && title != "" && title != articleTitleRepo.getById(id)) {
+            logger.info "更新文章标题"
+            articleTitleRepo.updateCreate id, title
+        }
+        if (summary != null && summary != "" && summary != articleSummaryRepo.getById(id)) {
+            logger.info "更新文章摘要"
+            articleSummaryRepo.updateCreate id, summary
+        }
+        if ((type == CommonConst.ARTICLE_TYPE_NOTE || type == CommonConst.ARTICLE_TYPE_BLOG) && type != articleTypeRepo.getById(id)) {
+            logger.info "更新文章类型"
+            articleTypeRepo.updateCreate id, type
+        }
+        if (classifyLabs != null && classifyLabs != "" && classifyLabs != articleClassifyRepo.getById(id)) {
+            logger.info "更新文章分类标签"
+            articleClassifyRepo.updateCreate id, classifyLabs
+        }
+
     }
 
     /**

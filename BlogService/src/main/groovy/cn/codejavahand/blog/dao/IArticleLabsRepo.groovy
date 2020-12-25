@@ -7,5 +7,5 @@ package cn.codejavahand.blog.dao
 interface IArticleLabsRepo {
     void updateCreate(String id, String labs)
 
-    List<String> getById(String id)
+    String getById(String id)
 }
