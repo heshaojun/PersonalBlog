@@ -70,11 +70,13 @@ class ArticleEditorService implements IArticleEditorService {
                 respVo = addArticle id, title, summary, type, classifyLabs, articleLabs, content, original
             } catch (Exception e) {
                 e.printStackTrace()
+                logger.error "添加文本失败", e
+            }
+            if (respVo.result != 'success') {
                 try {
                     file.deleteDir()
                 } catch (Exception e1) {
                 }
-                logger.error "添加文本失败", e
             }
             respVo
         } else {
