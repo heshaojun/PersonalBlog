@@ -1,8 +1,6 @@
 package cn.codejavahand.blog.service.impl
 
 import cn.codejavahand.blog.config.SysConfig
-import cn.codejavahand.blog.dao.entity.ArticleDetailDo
-import cn.codejavahand.blog.dao.repo.IArticleDetailRepo
 import cn.codejavahand.blog.service.IArticleEditorService
 import cn.codejavahand.blog.service.vo.RestRespVo
 import org.apache.commons.logging.Log
@@ -15,8 +13,7 @@ class ArticleEditorService implements IArticleEditorService {
     private final Log logger = LogFactory.getLog(ArticleEditorService.getClass())
     @Autowired
     private SysConfig sysConfig
-    @Autowired
-    private IArticleDetailRepo articleDetailRepo
+
 
     @Override
     RestRespVo addArticle(String title, String summary, String type, String classifyLabs, String articleLabs, String content, String original) {
@@ -58,7 +55,6 @@ class ArticleEditorService implements IArticleEditorService {
                 }
             }
             try {
-                articleDetailRepo.addArticle(id, new ArticleDetailDo(id, title, summary, original, content, "offline", type, classifyLabs, articleLabs))
                 respVo.setCode(200)
                 respVo.setResult('success')
                 respVo.setMsg('ok')
