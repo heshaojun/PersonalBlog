@@ -4,7 +4,7 @@ package cn.codejavahand.blog.common
  * @author heshaojun* @date 2020/12/23
  * @description TODO
  */
-class ComConst {
+class CommonConst {
     static final String CONTENT_FILE_NAME = "content.md" //文章内容文件名称
     static final String CLASSIFY_FILE_NAME = "classify.txt" //文章分类标签文件名称
     static final String LABS_FILE_NAME = "labs.txt" //文章标签文件名称
@@ -17,4 +17,11 @@ class ComConst {
 
     static final String ARTICLE_COMMENTS_PATH = "comments"//文章评论相对路径
     static final String WEB_VISITS_FILE_NAME = "web_visits.txt"
+
+
+    static final String ARTICLE_TYPE_NOTE = "note"//文章类型为笔记
+    static final String ARTICLE_TYPE_BLOG = "blog"//文章类型为博客
+
+    static final String ARTICLE_STATUS_ONLINE = "online"//文章状态为上线
+    static final String ARTICLE_STATUS_OFFLINE = "offline"//文章状态为离线
 }

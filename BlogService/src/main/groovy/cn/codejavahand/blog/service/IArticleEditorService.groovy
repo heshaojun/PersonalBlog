@@ -14,7 +14,7 @@ interface IArticleEditorService {
      * @param content
      * @return
      */
-    RestRespVo addArticle(String title, String summary, String type, String classifyLabs, String articleLabs, String content, String original)
+    RestRespVo addArticle(String id, String title, String summary, String type, String classifyLabs, String articleLabs, String content, String original)
 
     /**
      * 更新文章

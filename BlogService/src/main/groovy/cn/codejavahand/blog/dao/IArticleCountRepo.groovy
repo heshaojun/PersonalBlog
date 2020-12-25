@@ -5,7 +5,7 @@ package cn.codejavahand.blog.dao
  * @description TODO 获取文件统计数据
  */
 interface IArticleCountRepo {
-    int countNote(String status)
+    List<String> countNote(String status)
 
-    int countBlog(String status)
+    List<String> countBlog(String status)
 }

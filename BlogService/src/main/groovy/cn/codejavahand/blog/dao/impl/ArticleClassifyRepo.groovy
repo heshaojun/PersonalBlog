@@ -1,6 +1,6 @@
 package cn.codejavahand.blog.dao.impl
 
-import cn.codejavahand.blog.common.ComConst
+import cn.codejavahand.blog.common.CommonConst
 import cn.codejavahand.blog.config.SysConfig
 import cn.codejavahand.blog.dao.IArticleClassifyRepo
 import cn.codejavahand.blog.utils.TextFileOpUtils
@@ -18,11 +18,11 @@ class ArticleClassifyRepo implements IArticleClassifyRepo {
 
     @Override
     void updateCreate(String id, String classifyLabs) {
-        TextFileOpUtils.write sysConfig.rootPath + "/$id/${ComConst.CLASSIFY_FILE_NAME}", classifyLabs, false, true
+        TextFileOpUtils.write sysConfig.rootPath + "/$id/${CommonConst.CLASSIFY_FILE_NAME}", classifyLabs, false, true
     }
 
     @Override
     List<String> getById(String id) {
-        TextFileOpUtils.readAllLine sysConfig.rootPath + "/$id/${ComConst.CLASSIFY_FILE_NAME}"
+        TextFileOpUtils.readAllLine sysConfig.rootPath + "/$id/${CommonConst.CLASSIFY_FILE_NAME}"
     }
 }

@@ -9,19 +9,20 @@
 </head>
 <body class="position-absolute w-100">
 <div class="m-auto clearfix" style="width: 98%;">
+    <input class="d-none" hidden value="" id="_editor-article-id"/>
     <div class="col-lg-6 float-lg-left">
         <div class="form-group row border p-1 mb-0">
-            <div class="col-sm-2 col-form-label ">文章标题：</div>
+            <div class="col-sm-2 col-form-label text-right">文章标题：</div>
             <input type="text" class="col-sm-10 form-control border-primary" id="_editor-article-title"
                    placeholder="文章标题">
         </div>
     </div>
     <div class="col-lg-6 float-lg-left">
         <div class="form-group row border p-1 mb-0">
-            <div class="col-sm-2 col-form-label ">分类标签：</div>
-            <div class="col-sm-10 form-control border-secondary align-middle pl-0" id="_editor-classify-labs-area">
-                <div class="d-inline-block btn-group">
-                    <div class="dropdown-toggle btn btn-default  p-0 text-left" data-toggle="dropdown">
+            <div class="col-sm-2 col-form-label text-right">分类标签：</div>
+            <div class="col-sm-10 form-control border-secondary p-0 " id="_editor-classify-labs-area">
+                <div class="btn-group">
+                    <div class="d-inline-block dropdown-toggle btn  border-right" data-toggle="dropdown">
                         <span class="caret">标签</span>
                     </div>
                     <div class="dropdown-menu">
@@ -35,7 +36,7 @@
                 <div class="d-inline-block ml-2" id="_editor-classify-labs">
 
                 </div>
-                <div class="d-inline-block btn float-right clearfix p-0" title="添加一个标签"
+                <div class="d-inline-block btn float-right clearfix border" title="添加一个标签"
                      onclick="showInput('#_editor-classify-labs')">+
                 </div>
             </div>
@@ -44,10 +45,10 @@
     </div>
     <div class="col-lg-6 float-lg-left">
         <div class="form-group row border p-1 mb-0">
-            <div class="col-sm-2 col-form-label ">文章标签：</div>
-            <div class="col-sm-10 form-control border-secondary align-middle pl-0" id="_editor-article-labs-area">
-                <div class="d-inline-block btn-group">
-                    <div class="dropdown-toggle btn btn-default  p-0 text-left" data-toggle="dropdown">
+            <div class="col-sm-2 col-form-label text-right">文章标签：</div>
+            <div class="col-sm-10 form-control border-secondary  p-0" id="_editor-article-labs-area">
+                <div class="btn-group d-inline-block">
+                    <div class="d-inline-block dropdown-toggle btn  border-right" data-toggle="dropdown">
                         <span class="caret">标签</span>
                     </div>
                     <div class="dropdown-menu">
@@ -61,7 +62,7 @@
                 <div class="d-inline-block ml-2" id="_editor-article-labs">
 
                 </div>
-                <div class="d-inline-block btn float-right clearfix p-0" title="添加一个标签"
+                <div class="d-inline-block btn float-right clearfix border" title="添加一个标签"
                      onclick="showInput('#_editor-article-labs')">+
                 </div>
             </div>
@@ -70,7 +71,7 @@
     </div>
     <div class="col-lg-6 float-lg-right clearfix">
         <div class="form-group row border p-1 mb-0">
-            <div class="col-sm-2 col-form-label ">文章类型：</div>
+            <div class="col-sm-2 col-form-label p-0 mt-auto mb-auto ml-0 mr-0  text-right">文章类型：</div>
             <div class="col-sm-3 form-control border-0" id="_editor-article-type">
                 <div class="radio d-inline-block">
                     <label>
@@ -83,8 +84,8 @@
                     </label>
                 </div>
             </div>
-            <div class="col-sm-3 col-form-label ">是否为原创：</div>
-            <div class="col-sm-3 form-control border-0" id="_editor-article-origin">
+            <div class="col-sm-3 col-form-label p-0 mt-auto mb-auto ml-0 mr-0  text-right">是否为原创：</div>
+            <div class="col-sm-4 form-control border-0" id="_editor-article-origin">
                 <div class="radio d-inline-block">
                     <label>
                         <input type="radio" name="optionsRadios1" value="yes" checked>原创
@@ -164,7 +165,7 @@
 <script type="application/javascript" src="../js/bootstrap.min.js"></script>
 <script type="application/javascript" src="../js/m.common.js"></script>
 <script>
-    let editorUrl = "/admin/addArticle";
+    let editorUrl = "/admin/updateCreate";
     $(function () {
         $("#_markdown_show_area").html(converter.makeHtml($(this).val()));
         $("#_markdown-editable-area").bind('change', function () {
@@ -217,10 +218,10 @@
         let classifyLabs = "";
         let articleLabs = "";
         for (let i = 0; i < classifyList.length; i++) {
-            classifyLabs += "|" + $(classifyList[i]).text();
+            classifyLabs += " " + $(classifyList[i]).text();
         }
         for (let i = 0; i < articleList.length; i++) {
-            articleLabs += "|" + $(classifyList[i]).text();
+            articleLabs += " " + $(classifyList[i]).text();
         }
         $("#_commit-modal").html(' <div>文章标题：\n' +
             '                    <textarea class="w-100" rows="3" readonly>' + title + '</textarea>\n' +
@@ -237,6 +238,7 @@
     }
 
     function confirm() {
+        let id = $("#_editor-article-id").val();
         let title = $("#_editor-article-title").val();
         let summary = $("#_editor-article-summary").val();
         let type = $("#_editor-article-type input:checked").val();
@@ -253,6 +255,7 @@
         }
         let content = $("#_markdown-editable-area").val();
         let data = {
+            "id": id,
             "title": title,
             "summary": summary,
             "type": type,

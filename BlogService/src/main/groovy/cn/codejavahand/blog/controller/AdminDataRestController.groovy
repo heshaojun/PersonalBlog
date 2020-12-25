@@ -19,8 +19,8 @@ class AdminDataRestController {
     @Autowired
     IArticleEditorService articleEditorService
 
-    @PostMapping("/addArticle")
-    RestRespVo addArticle(String title, String summary, String type, String classifyLabs, String articleLabs, String content, String original) {
-        articleEditorService.addArticle(title, summary, type, classifyLabs, articleLabs, content, original)
+    @PostMapping("/updateCreate")
+    RestRespVo addArticle(String id, String title, String summary, String type, String classifyLabs, String articleLabs, String content, String original) {
+        articleEditorService.addArticle(id,title, summary, type, classifyLabs, articleLabs, content, original)
     }
 }

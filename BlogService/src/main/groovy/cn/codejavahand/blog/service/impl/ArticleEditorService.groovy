@@ -16,7 +16,7 @@ class ArticleEditorService implements IArticleEditorService {
 
 
     @Override
-    RestRespVo addArticle(String title, String summary, String type, String classifyLabs, String articleLabs, String content, String original) {
+    RestRespVo addArticle(String id, String title, String summary, String type, String classifyLabs, String articleLabs, String content, String original) {
         logger.info "开始添加文章"
         RestRespVo respVo = new RestRespVo()
         respVo.setCode(500)
@@ -43,7 +43,7 @@ class ArticleEditorService implements IArticleEditorService {
             respVo.setMsg("文章内容为空")
             logger.info "文章内容为空"
         } else {
-            String id = new Date().getTime().toString()
+            //String id = new Date().getTime().toString()
             File file = new File(sysConfig.getRootPath() + "/" + id)
             while (true) {
                 if (file.exists()) {

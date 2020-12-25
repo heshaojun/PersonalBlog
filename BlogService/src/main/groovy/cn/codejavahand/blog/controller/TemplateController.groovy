@@ -24,7 +24,8 @@ class TemplateController {
     }
 
     @RequestMapping("/admin/create")
-    String toEditor() {
+    String toEditor(Model model) {
+        model.addAttribute("actionUrl", "/admin/addArticle")
         'editor'
     }
 

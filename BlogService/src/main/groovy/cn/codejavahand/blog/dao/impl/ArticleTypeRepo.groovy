@@ -2,7 +2,7 @@ package cn.codejavahand.blog.dao.impl
 
 import cn.codejavahand.blog.common.CommonConst
 import cn.codejavahand.blog.config.SysConfig
-import cn.codejavahand.blog.dao.IWebVisitsRepo
+import cn.codejavahand.blog.dao.IArticleTypeRepo
 import cn.codejavahand.blog.utils.TextFileOpUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cache.annotation.CacheEvict
@@ -14,20 +14,19 @@ import org.springframework.stereotype.Service
  * @description TODO
  */
 @Service
-class WebVisitsRepo implements IWebVisitsRepo {
-
+class ArticleTypeRepo implements IArticleTypeRepo {
     @Autowired
     private SysConfig sysConfig
 
     @Override
-    @CacheEvict(value = "webVisits")
-    void updateCreate(long visit) {
-        TextFileOpUtils.write sysConfig.rootPath + "${CommonConst.WEB_VISITS_FILE_NAME}", "$visit", false, true
+    @CacheEvict(value = ["articleType", "countNote", "countBlog"], key = "#id", allEntries = true)
+    void updateCreate(String id, String type) {
+        TextFileOpUtils.write sysConfig.rootPath + "/$id/${CommonConst.TYPE_FILE_NAME}", type, false, true
     }
 
     @Override
-    @Cacheable(value = "webVisits")
-    long getWebVisits() {
-        Long.valueOf(TextFileOpUtils.readAllString(sysConfig.rootPath + "${CommonConst.WEB_VISITS_FILE_NAME}"))
+    @Cacheable(value = "articleType", key = "#id")
+    String getById(String id) {
+        TextFileOpUtils.readAllString sysConfig.rootPath + "/$id/${CommonConst.TYPE_FILE_NAME}"
     }
 }

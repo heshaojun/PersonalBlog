@@ -1,6 +1,6 @@
 package cn.codejavahand.blog.dao.impl
 
-import cn.codejavahand.blog.common.ComConst
+import cn.codejavahand.blog.common.CommonConst
 import cn.codejavahand.blog.config.SysConfig
 import cn.codejavahand.blog.dao.IArticleLabsRepo
 import cn.codejavahand.blog.utils.TextFileOpUtils
@@ -21,12 +21,12 @@ class ArticleLabsRepo implements IArticleLabsRepo {
     @Override
     @CacheEvict(value = "articleLabs", key = "#id")
     void updateCreate(String id, String labs) {
-        TextFileOpUtils.write sysConfig.rootPath + "/$id/${ComConst.LABS_FILE_NAME}", labs, false, true
+        TextFileOpUtils.write sysConfig.rootPath + "/$id/${CommonConst.LABS_FILE_NAME}", labs, false, true
     }
 
     @Override
     @Cacheable(value = "articleLabs", key = "#id")
     List<String> getById(String id) {
-        TextFileOpUtils.readAllLine sysConfig.rootPath + "/$id/${ComConst.LABS_FILE_NAME}"
+        TextFileOpUtils.readAllLine sysConfig.rootPath + "/$id/${CommonConst.LABS_FILE_NAME}"
     }
 }

@@ -1,6 +1,6 @@
 package cn.codejavahand.blog.dao.impl
 
-import cn.codejavahand.blog.common.ComConst
+import cn.codejavahand.blog.common.CommonConst
 import cn.codejavahand.blog.config.SysConfig
 import cn.codejavahand.blog.dao.IArticleSummaryRepo
 import cn.codejavahand.blog.utils.TextFileOpUtils
@@ -22,12 +22,12 @@ class ArticleSummaryRepo implements IArticleSummaryRepo {
     @Override
     @CacheEvict(value = "articleSummary", key = "#id")
     void updateCreate(String id, String summary) {
-        TextFileOpUtils.write sysConfig.rootPath + "/$id/${ComConst.SUMMARY_FILE_NAME}", summary, false, true
+        TextFileOpUtils.write sysConfig.rootPath + "/$id/${CommonConst.SUMMARY_FILE_NAME}", summary, false, true
     }
 
     @Override
     @Cacheable(value = "articleSummary", key = "#id")
     String getById(String id) {
-        TextFileOpUtils.readAllString sysConfig.rootPath + "/$id/${ComConst.SUMMARY_FILE_NAME}"
+        TextFileOpUtils.readAllString sysConfig.rootPath + "/$id/${CommonConst.SUMMARY_FILE_NAME}"
     }
 }
