@@ -5,7 +5,7 @@ import cn.codejavahand.blog.service.vo.RestRespVo
 
 interface IArticleEditorService {
     /**
-     * 添加文章
+     * 更新添加文章
      * @param title
      * @param summary
      * @param type
@@ -14,19 +14,7 @@ interface IArticleEditorService {
      * @param content
      * @return
      */
-    RestRespVo addArticle(String id, String title, String summary, String type, String classifyLabs, String articleLabs, String content, String original)
-
-    /**
-     * 更新文章
-     * @param id
-     * @param title
-     * @param summary
-     * @param classifyLabs
-     * @param articleLabs
-     * @param content
-     * @return
-     */
-    RestRespVo updateArticle(String id, String title, String summary, String classifyLabs, String articleLabs, String content)
+    RestRespVo updateCreate(String id, String title, String summary, String type, String classifyLabs, String articleLabs, String content, String original)
 
     /**
      * 上线文章

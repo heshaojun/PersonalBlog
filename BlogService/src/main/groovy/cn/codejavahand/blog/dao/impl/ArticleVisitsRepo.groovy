@@ -21,7 +21,7 @@ class ArticleVisitsRepo implements IArticleVisitsRepo {
     @Override
     @CacheEvict(value = "articleVisits", key = "#id")
     void updateCreate(String id, int visits) {
-        TextFileOpUtils.write sysConfig.rootPath + "/$id/${CommonConst.VISITS_FILE_NAME}", false, true
+        TextFileOpUtils.write sysConfig.rootPath + "/$id/${CommonConst.VISITS_FILE_NAME}", "$visits", false, true
     }
 
     @Override

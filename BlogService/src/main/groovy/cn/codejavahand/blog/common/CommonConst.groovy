@@ -24,4 +24,6 @@ class CommonConst {
 
     static final String ARTICLE_STATUS_ONLINE = "online"//文章状态为上线
     static final String ARTICLE_STATUS_OFFLINE = "offline"//文章状态为离线
+    static final String ORIGINAl_YES = "yes"//原创
+    static final String ORIGINAl_NO = "no"//非原创
 }

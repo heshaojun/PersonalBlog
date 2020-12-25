@@ -270,6 +270,9 @@
             if (status == 'success') {
                 if (data['result'] == 'success') {
                     alert("提交文章成功");
+                    $("#_editor-article-title").val("");
+                    $("#_editor-article-summary").val("");
+                    $("#_markdown-editable-area").val("");
                 } else {
                     alert("提交文章失败，" + data['msg']);
                 }
