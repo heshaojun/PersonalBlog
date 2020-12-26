@@ -21,12 +21,12 @@ class ArticleTitleRepo implements IArticleTitleRepo {
     @Override
     @CacheEvict(value = "articleTitle", key = "#id")
     void updateCreate(String id, String title) {
-        TextFileOpUtils.write sysConfig.rootPath + "/$id/${CommonConst.TITLE_FILE_NAME}", title, false, true
+        TextFileOpUtils.write sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.TITLE_FILE_NAME}", title, false, true
     }
 
     @Override
     @Cacheable(value = "articleTitle", key = "#id")
     String getById(String id) {
-        TextFileOpUtils.readAllString sysConfig.rootPath + "/$id/${CommonConst.TITLE_FILE_NAME}"
+        TextFileOpUtils.readAllString sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.TITLE_FILE_NAME}"
     }
 }

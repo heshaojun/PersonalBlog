@@ -22,12 +22,12 @@ class ArticleSummaryRepo implements IArticleSummaryRepo {
     @Override
     @CacheEvict(value = "articleSummary", key = "#id")
     void updateCreate(String id, String summary) {
-        TextFileOpUtils.write sysConfig.rootPath + "/$id/${CommonConst.SUMMARY_FILE_NAME}", summary, false, true
+        TextFileOpUtils.write sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.SUMMARY_FILE_NAME}", summary, false, true
     }
 
     @Override
     @Cacheable(value = "articleSummary", key = "#id")
     String getById(String id) {
-        TextFileOpUtils.readAllString sysConfig.rootPath + "/$id/${CommonConst.SUMMARY_FILE_NAME}"
+        TextFileOpUtils.readAllString sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.SUMMARY_FILE_NAME}"
     }
 }

@@ -21,12 +21,12 @@ class ArticleOriginalMarkRepo implements IArticleOriginalMarkRepo {
     @Override
     @CacheEvict(value = "originalMark", key = "#id")
     void createUpdate(String id, String mark) {
-        TextFileOpUtils.write sysConfig.rootPath + "/$id/${CommonConst.ORIGINAl_FILE_NAME}", mark, false, true
+        TextFileOpUtils.write sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.ORIGINAl_FILE_NAME}", mark, false, true
     }
 
     @Override
     @Cacheable(value = "originalMark", key = "#id")
     String getById(String id) {
-        TextFileOpUtils.readAllString sysConfig.rootPath + "/$id/${CommonConst.ORIGINAl_FILE_NAME}"
+        TextFileOpUtils.readAllString sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.ORIGINAl_FILE_NAME}"
     }
 }

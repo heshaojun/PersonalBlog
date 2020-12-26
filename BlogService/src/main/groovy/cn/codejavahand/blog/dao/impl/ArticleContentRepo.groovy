@@ -19,14 +19,15 @@ class ArticleContentRepo implements IArticleContentRepo {
     private SysConfig sysConfig
 
     @Override
-    @CacheEvict(value = "articleContent", key = "#id")
+    @CacheEvict(value = ["articleContent", "allArticleIdList"], key = "#id", allEntries = true)
     void updateCreate(String id, String content) {
-        TextFileOpUtils.write sysConfig.rootPath + "/$id/${CommonConst.CONTENT_FILE_NAME}", content, false, true
+        TextFileOpUtils.write sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.CONTENT_FILE_NAME}", content, false, true
     }
 
     @Override
     @Cacheable(value = "articleContent", key = "#id")
     String getById(String id) {
-        TextFileOpUtils.readAllString sysConfig.rootPath + "/$id/${CommonConst.CONTENT_FILE_NAME}"
+        TextFileOpUtils.readAllString sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.CONTENT_FILE_NAME}"
     }
+
 }

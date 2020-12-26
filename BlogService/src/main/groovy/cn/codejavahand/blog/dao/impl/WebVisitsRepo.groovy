@@ -20,14 +20,20 @@ class WebVisitsRepo implements IWebVisitsRepo {
     private SysConfig sysConfig
 
     @Override
-    @CacheEvict(value = "webVisits")
+    @CacheEvict(value = "webVisits", allEntries = true)
     void updateCreate(long visit) {
-        TextFileOpUtils.write sysConfig.rootPath + "${CommonConst.WEB_VISITS_FILE_NAME}", "$visit", false, true
+        TextFileOpUtils.write sysConfig.rootPath + "/${CommonConst.WEB_VISITS_FILE_NAME}", "$visit", false, true
     }
 
     @Override
     @Cacheable(value = "webVisits")
     long getWebVisits() {
-        Long.valueOf(TextFileOpUtils.readAllString(sysConfig.rootPath + "${CommonConst.WEB_VISITS_FILE_NAME}"))
+        File file = new File(sysConfig.rootPath + "/${CommonConst.WEB_VISITS_FILE_NAME}")
+        if (file.exists()) {
+            if (file.isFile()) {
+                return Long.valueOf(TextFileOpUtils.readAllString(sysConfig.rootPath + "/${CommonConst.WEB_VISITS_FILE_NAME}").replaceAll("\n", ""))
+            }
+        }
+        return 0L
     }
 }

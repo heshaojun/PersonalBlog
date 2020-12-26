@@ -4,5 +4,5 @@ import cn.codejavahand.blog.service.vo.RestRespVo
 
 
 interface IArticleListService {
-    RestRespVo getArticleList(int size, int page, String scope, String order, String key)
+    RestRespVo getArticleList(int size, int page, String scope, String order, String mark)
 }

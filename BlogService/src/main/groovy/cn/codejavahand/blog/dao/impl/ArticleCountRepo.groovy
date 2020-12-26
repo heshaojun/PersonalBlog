@@ -24,47 +24,41 @@ class ArticleCountRepo implements IArticleCountRepo {
     private IArticleStatusRepo articleStatusRepo
 
     @Override
-    @Cacheable(value = "countNote", key = "#status")
     List<String> countNote(String status) {
         List<String> idList = getAllId()
         List<String> filteredIds = new ArrayList<>()
-        filteredIds.with {
-            for (String id in idList) {
-                try {
-                    if (status == articleStatusRepo.getById(id) && CommonConst.ARTICLE_TYPE_NOTE == articleTypeRepo.getById(id)) {
-                        add(id)
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace()
+        for (String id in idList) {
+            try {
+                if (status == articleStatusRepo.getById(id).replaceAll("\n", "") && CommonConst.ARTICLE_TYPE_NOTE == articleTypeRepo.getById(id).replaceAll("\n", "")) {
+                    filteredIds.add(id)
                 }
+            } catch (Exception e) {
+                e.printStackTrace()
             }
         }
         filteredIds
     }
 
     @Override
-    @Cacheable(value = "countBlog", key = "#status")
     List<String> countBlog(String status) {
         List<String> idList = getAllId()
         List<String> filteredIds = new ArrayList<>()
-        filteredIds.with {
-            for (String id in idList) {
-                try {
-                    if (status == articleStatusRepo.getById(id) && CommonConst.ARTICLE_TYPE_BLOG == articleTypeRepo.getById(id)) {
-                        add(id)
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace()
+        for (String id in idList) {
+            try {
+                if (status == articleStatusRepo.getById(id).replaceAll("\n", "") && CommonConst.ARTICLE_TYPE_BLOG == articleTypeRepo.getById(id).replaceAll("\n", "")) {
+                    filteredIds.add(id)
                 }
+            } catch (Exception e) {
+                e.printStackTrace()
             }
         }
         filteredIds
     }
 
-    @Cacheable(value = "allIdList")
+    @Cacheable(value = "allArticleIdList")
     List<String> getAllId() {
-        File[] files = new File(sysConfig.rootPath).listFiles({ File file -> file.isDirectory() } as FileFilter)
-        List<String> idList = new ArrayList<>(files.size())
+        File[] files = new File(sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}").listFiles({ File file -> file.isDirectory() } as FileFilter)
+        List<String> idList = new ArrayList<>()
         idList.with {
             for (File file in files) {
                 add file.name

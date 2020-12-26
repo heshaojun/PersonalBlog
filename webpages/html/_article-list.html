@@ -2,13 +2,10 @@
 <div class="position-relative d-flex flex-column border">
     <div class="card-header bg-white">
         <div class="float-sm-left" id="_article_list_header">
-
+            <div class="text-danger">没有数据!</div>
         </div>
-        <div class="float-sm-right">
-            <a class="btn p-0 text-primary disabled"
-               onclick="change_home_article_order(this,'time')"><small>按时间排序</small></a>
-            |
-            <a class="btn p-0 " onclick="change_home_article_order(this,'visit')"><small>按访问量排序</small></a>
+        <div class="float-sm-right" id="_article_order_type_option">
+
         </div>
     </div>
     <div class=" p-0" id="_home-article-list-area"></div>
@@ -17,41 +14,55 @@
 <script>
     //初始化主页文章列表
     $(function () {
-        $.get("data/article_list.json?size=10&page=1&scope=" + articleScope + "&order=" + articleOrderBy + "&mark=" + classifyMark, function (data, status) {
-            if (status == 'success') {
-                if (data['result'] == 'success') {
-                    let result_data = data['data'];
-                    if (result_data.length < 1) {
-                        $("#_home-article-list-area").text("没有相关的数据！");
-                    } else {
-                        if (classifyMark.startsWith('clab_')) {
-                            $("#_article_list_header").text(
-                                '分类标签：' + classifyMark.substring(5) + ' (' + result_data['articleCount'] + ')'
-                            );
-                        } else if (classifyMark.startsWith('alab_')) {
-                            $("#_article_list_header").text(
-                                '文章标签：' + classifyMark.substring(5) + ' (' + result_data['articleCount'] + ')'
-                            );
-                        } else if (classifyMark.startsWith('kw_')) {
-                            $("#_article_list_header").text(
-                                '搜索关键字：' + classifyMark.substring(3) + ' (' + result_data['articleCount'] + ')'
-                            );
-                        } else {
-                            $("#_article_list_header").html('<a class="btn p-0 mr-2 text-primary disabled" onclick="change_home_article_scope(this,"all")">全部(' + result_data['articleCount'] + ')</a>\n' +
-                                '            <a class="btn p-0 mr-2" onclick="change_home_article_scope(this,"blog")">博客(' + result_data['blogCount'] + ')</a>\n' +
-                                '            <a class="btn p-0 mr-2" onclick="change_home_article_scope(this,"note")">笔记(' + result_data['noteCount'] + ')</a>');
+        let postData =
+            $.post("data/articleList", {
+                size: 10,
+                page: 1,
+                scope: articleScope,
+                order: articleOrderBy,
+                mark: classifyMark
+            }, function (data, status) {
+                if (status == 'success') {
+                    if (data['result'] == 'success') {
+                        let result_data = data['data'];
+                        if (result_data.length > 0) {
+                            $("#_article_order_type_option").html("<a class=\"btn p-0 text-primary disabled\"\n" +
+                                "               onclick=\"change_home_article_order(this,'time')\"><small>按时间排序</small></a>\n" +
+                                "            |\n" +
+                                "            <a class=\"btn p-0 \" onclick=\"change_home_article_order(this,'visit')\"><small>按访问量排序</small></a>")
+                            if (classifyMark.startsWith('clab_')) {
+                                $("#_article_list_header").text(
+                                    '分类标签：' + classifyMark.substring(5) + ' (' + result_data['articleCount'] + ')'
+                                );
+                            } else if (classifyMark.startsWith('alab_')) {
+                                $("#_article_list_header").text(
+                                    '文章标签：' + classifyMark.substring(5) + ' (' + result_data['articleCount'] + ')'
+                                );
+                            } else if (classifyMark.startsWith('kw_')) {
+                                $("#_article_list_header").text(
+                                    '搜索关键字：' + classifyMark.substring(3) + ' (' + result_data['articleCount'] + ')'
+                                );
+                            } else {
+                                $("#_article_list_header").html('<a class="btn p-0 mr-2 text-primary disabled" onclick="change_home_article_scope(this,\'all\')">全部(' + result_data['articleCount'] + ')</a>\n' +
+                                    '            <a class="btn p-0 mr-2" onclick="change_home_article_scope(this,\'blog\')">博客(' + result_data['blogCount'] + ')</a>\n' +
+                                    '            <a class="btn p-0 mr-2" onclick="change_home_article_scope(this,\'note\')">笔记(' + result_data['noteCount'] + ')</a>');
+                            }
                         }
+                        get_home_article_list(10, 1);
                     }
-                    get_home_article_list(10, 1);
                 }
-            }
-        });
-    })
-    ;
+            });
+    });
 
     //获取文章列表，加载文章列表和文章列表分页栏
     function get_home_article_list(size, page) {
-        $.get("data/article_list.json?size=" + size + "&page=" + page + "&scope=" + articleScope + "&order=" + articleOrderBy + "&key=" + classifyMark,
+        $.get("data/articleList", {
+                size: size,
+                page: page,
+                scope: articleScope,
+                order: articleOrderBy,
+                mark: classifyMark
+            },
             function (data, status) {
                 if (status == "success") {
                     if (data['result'] == 'success') {
@@ -87,6 +98,7 @@
         $(selector).parent("div").find("a.disabled").removeClass("text-primary disabled");
         $(selector).addClass("text-primary disabled");
         articleOrderBy = type;
+        get_home_article_list(10, 1);
     }
 
 </script>

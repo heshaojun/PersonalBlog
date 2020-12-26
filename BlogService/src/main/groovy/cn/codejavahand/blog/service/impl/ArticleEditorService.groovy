@@ -57,13 +57,13 @@ class ArticleEditorService implements IArticleEditorService {
         if (id == "" || id == null || id.replaceAll(" ", "") == "") {
             logger.info "开始添加文章"
             id = new Date().getTime().toString()
-            File file = new File(sysConfig.rootPath + "/$id")
+            File file = new File(sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id")
             while (true) {
                 if (file.exists()) {
                     if (!file.isDirectory()) break
                 } else break
                 id = new Date().getTime().toString()
-                file = new File(sysConfig.rootPath + "/$id")
+                file = new File(sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id")
             }
             file.mkdirs()
             try {

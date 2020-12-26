@@ -21,13 +21,13 @@ class ArticleLabsRepo implements IArticleLabsRepo {
     @Override
     @CacheEvict(value = "articleLabs", key = "#id")
     void updateCreate(String id, String labs) {
-        TextFileOpUtils.write sysConfig.rootPath + "/$id/${CommonConst.LABS_FILE_NAME}", labs, false, true
+        TextFileOpUtils.write sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.LABS_FILE_NAME}", labs, false, true
     }
 
     @Override
     @Cacheable(value = "articleLabs", key = "#id")
     String getById(String id) {
-        TextFileOpUtils.readAllString sysConfig.rootPath + "/$id/${CommonConst.LABS_FILE_NAME}"
+        TextFileOpUtils.readAllString sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.LABS_FILE_NAME}"
     }
 
 }

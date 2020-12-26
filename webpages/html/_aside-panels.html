@@ -13,6 +13,11 @@
         </a>
         <div class="list-group-item pt-1 pb-1">
             <div class="row" id="_website-statistics">
+                <div class="col-6 ">访问：<span dataname="visits">0</span></div>
+                <div class="col-6 ">文章：<span dataname="articles">0</span></div>
+                <div class="col-6 ">博客：<span dataname="blogs">0</span></div>
+                <div class="col-6 ">笔记：<span dataname="notes">0</span></div>
+                <div class="col-6 ">留言：<span dataname="comments">0</span></div>
             </div>
         </div>
         <div class="list-group-item pt-1 pb-2">
@@ -63,16 +68,16 @@
 <script>
     $(function () {
         //加载统计数据
-        $.get('data/sit_statistics.json', function (data, status) {
+        $.post('data/webStatistic', null, function (data, status) {
             if (status == 'success') {
                 if (data['result'] == 'success') {
                     let result_data = data['data'];
                     if (result_data) {
-                        $("#_website-statistics").html('                <div class="col-6 ">访问：' + result_data['visits'] + '</div>\n' +
-                            '                <div class="col-6 ">文章：' + result_data['articles'] + '</div>\n' +
-                            '                <div class="col-6 ">博客：' + result_data['blogs'] + '</div>\n' +
-                            '                <div class="col-6 ">笔记：' + result_data['notes'] + '</div>\n' +
-                            '                <div class="col-6 ">留言：' + result_data['comments'] + '</div>');
+                        $("#_website-statistics span[dataname='visits']").text(result_data['visits']);
+                        $("#_website-statistics span[dataname='blogs']").text(result_data['blogs']);
+                        $("#_website-statistics span[dataname='notes']").text(result_data['notes']);
+                        $("#_website-statistics span[dataname='articles']").text(result_data['articles']);
+                        $("#_website-statistics span[dataname='comments']").text(result_data['comments']);
                     }
                 }
             }

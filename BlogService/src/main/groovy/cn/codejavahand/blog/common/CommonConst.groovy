@@ -16,6 +16,8 @@ class CommonConst {
     static final String VISITS_FILE_NAME = "visits.txt"//文章阅读量记录文件
 
     static final String ARTICLE_COMMENTS_PATH = "comments"//文章评论相对路径
+    static final String MSG_BOARD_PATH = "msgBoard"//留言信息相对路径
+    static final String ARTICLE_PATH = "articles"//留言信息相对路径
     static final String WEB_VISITS_FILE_NAME = "web_visits.txt"
 
 

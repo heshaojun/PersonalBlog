@@ -19,14 +19,14 @@ class ArticleTypeRepo implements IArticleTypeRepo {
     private SysConfig sysConfig
 
     @Override
-    @CacheEvict(value = ["articleType", "countNote", "countBlog"], key = "#id", allEntries = true)
+    @CacheEvict(value = ["articleType", "allArticleIdList"], key = "#id", allEntries = true)
     void updateCreate(String id, String type) {
-        TextFileOpUtils.write sysConfig.rootPath + "/$id/${CommonConst.TYPE_FILE_NAME}", type, false, true
+        TextFileOpUtils.write sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.TYPE_FILE_NAME}", type, false, true
     }
 
     @Override
     @Cacheable(value = "articleType", key = "#id")
     String getById(String id) {
-        TextFileOpUtils.readAllString sysConfig.rootPath + "/$id/${CommonConst.TYPE_FILE_NAME}"
+        TextFileOpUtils.readAllString sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.TYPE_FILE_NAME}"
     }
 }
