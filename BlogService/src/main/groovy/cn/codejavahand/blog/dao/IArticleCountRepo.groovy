@@ -10,4 +10,10 @@ interface IArticleCountRepo {
     List<String> countNote(String status)
 
     List<String> countBlog(String status)
+
+    List<String> countAll()
+
+    List<String> countOnline()
+
+    List<String> countOffLine()
 }

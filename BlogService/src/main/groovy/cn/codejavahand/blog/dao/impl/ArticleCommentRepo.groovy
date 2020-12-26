@@ -6,6 +6,8 @@ import cn.codejavahand.blog.dao.IArticleCommentRepo
 import cn.codejavahand.blog.service.vo.CommentVo
 import cn.codejavahand.blog.utils.TextFileOpUtils
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import org.apache.commons.codec.binary.Base64
 
@@ -37,12 +39,14 @@ class ArticleCommentRepo implements IArticleCommentRepo {
     }
 
     @Override
+    @CacheEvict(value = "articleComments", key = "{#id}and{#commentId}")
     void deleteComment(String id, String commentId) {
         File file = new File("${sysConfig.rootPath}/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.ARTICLE_COMMENTS_PATH}/$commentId")
         file.delete()
     }
 
     @Override
+    @Cacheable(value = "articleComments", key = "{#id}and{#commentId}")
     CommentVo getById(String id, String commentId) {
         List<String> dataList = TextFileOpUtils.readAllLine "${sysConfig.rootPath}/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.ARTICLE_COMMENTS_PATH}/$commentId"
         CommentVo commentVo = new CommentVo()

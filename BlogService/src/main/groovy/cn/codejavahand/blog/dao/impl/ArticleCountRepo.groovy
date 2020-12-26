@@ -25,7 +25,7 @@ class ArticleCountRepo implements IArticleCountRepo {
 
     @Override
     List<String> countNote(String status) {
-        List<String> idList = getAllId()
+        List<String> idList = countAll()
         List<String> filteredIds = new ArrayList<>()
         for (String id in idList) {
             try {
@@ -41,7 +41,7 @@ class ArticleCountRepo implements IArticleCountRepo {
 
     @Override
     List<String> countBlog(String status) {
-        List<String> idList = getAllId()
+        List<String> idList = countAll()
         List<String> filteredIds = new ArrayList<>()
         for (String id in idList) {
             try {
@@ -55,15 +55,41 @@ class ArticleCountRepo implements IArticleCountRepo {
         filteredIds
     }
 
+    @Override
     @Cacheable(value = "allArticleIdList")
-    List<String> getAllId() {
+    List<String> countAll() {
         File[] files = new File(sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}").listFiles({ File file -> file.isDirectory() } as FileFilter)
         List<String> idList = new ArrayList<>()
-        idList.with {
-            for (File file in files) {
-                add file.name
-            }
+        for (File file in files) {
+            idList.add file.name
         }
         idList
     }
+
+    @Override
+    @Cacheable(value = "allOnlineArticleIdList")
+    List<String> countOnline() {
+        List<String> allId = countAll()
+        List<String> online = new ArrayList<>()
+        for (String id in allId) {
+            if (CommonConst.ARTICLE_STATUS_ONLINE == articleStatusRepo.getById(id).replaceAll("\n", "")) {
+                online.add(id)
+            }
+        }
+        online
+    }
+
+    @Override
+    @Cacheable(value = "allOfflineArticleIdList")
+    List<String> countOffLine() {
+        List<String> allId = countAll()
+        List<String> offline = new ArrayList<>()
+        for (String id in allId) {
+            if (CommonConst.ARTICLE_STATUS_ONLINE == articleStatusRepo.getById(id).replaceAll("\n", "")) {
+                offline.add(id)
+            }
+        }
+        offline
+    }
+
 }

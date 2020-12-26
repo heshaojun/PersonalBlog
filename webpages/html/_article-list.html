@@ -29,7 +29,8 @@
                             $("#_article_order_type_option").html("<a class=\"btn p-0 text-primary disabled\"\n" +
                                 "               onclick=\"change_home_article_order(this,'time')\"><small>按时间排序</small></a>\n" +
                                 "            |\n" +
-                                "            <a class=\"btn p-0 \" onclick=\"change_home_article_order(this,'visit')\"><small>按访问量排序</small></a>")
+                                "            <a class=\"btn p-0 \" onclick=\"change_home_article_order(this,'visit')\"><small>按访问量排序</small></a>");
+                            articleOrderBy = 'time';
                             if (classifyMark.startsWith('clab_')) {
                                 $("#_article_list_header").text(
                                     '分类标签：' + classifyMark.substring(5) + ' (' + result_data['articleCount'] + ')'

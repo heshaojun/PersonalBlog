@@ -19,7 +19,7 @@ class ArticleStatusRepo implements IArticleStatusRepo {
     private SysConfig sysConfig
 
     @Override
-    @CacheEvict(value = ["articleStatus", "allArticleIdList"], key = "#id", allEntries = true)
+    @CacheEvict(value = ["articleStatus", "allArticleIdList", "allOfflineArticleIdList", "allOnlineArticleIdList"], key = "#id", allEntries = true)
     void updateCreate(String id, String status) {
         TextFileOpUtils.write sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.STATUS_FILE_NAME}", status, false, true
     }
