@@ -10,6 +10,13 @@ import javax.servlet.annotation.WebListener
 import javax.servlet.http.HttpSessionEvent
 import javax.servlet.http.HttpSessionListener
 
+/**
+ * @Author shaojun he
+ * @Mail keepword_heshaojun@hotmail.com
+ * @Date 2020/12/26
+ * @Description TODO 注册seesion创建监听器，seesion创建时为新用户访问，网站访问记录添加1
+ *
+ */
 @WebListener
 @Component
 class SessionListener implements HttpSessionListener {

@@ -13,7 +13,7 @@ import cn.codejavahand.blog.dao.IArticleTitleRepo
 import cn.codejavahand.blog.dao.IArticleTypeRepo
 import cn.codejavahand.blog.dao.IArticleVisitsRepo
 import cn.codejavahand.blog.dao.IWebVisitsRepo
-import cn.codejavahand.blog.service.IArticleEditorService
+import cn.codejavahand.blog.service.IArticleEditService
 import cn.codejavahand.blog.service.vo.RestRespVo
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
@@ -21,8 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class ArticleEditorService implements IArticleEditorService {
-    private final Log logger = LogFactory.getLog(ArticleEditorService.getClass())
+class ArticleEditService implements IArticleEditService {
+    private final Log logger = LogFactory.getLog(ArticleEditService.getClass())
     @Autowired
     private SysConfig sysConfig
     @Autowired

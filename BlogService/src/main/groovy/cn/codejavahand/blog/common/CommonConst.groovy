@@ -1,8 +1,11 @@
 package cn.codejavahand.blog.common
 
+
 /**
- * @author heshaojun* @date 2020/12/23
- * @description TODO
+ * @Author shaojun he
+ * @Mail keepword_heshaojun@hotmail.com
+ * @Date 2020/12/26
+ * @Description TODO 通用常量
  */
 class CommonConst {
     static final String CONTENT_FILE_NAME = "content.md" //文章内容文件名称

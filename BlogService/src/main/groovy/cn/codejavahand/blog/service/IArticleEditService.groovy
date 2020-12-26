@@ -2,8 +2,14 @@ package cn.codejavahand.blog.service
 
 import cn.codejavahand.blog.service.vo.RestRespVo
 
+/**
+ * @Author shaojun he
+ * @Mail keepword_heshaojun@hotmail.com
+ * @Date 2020/12/26
+ * @Description TODO 文章编辑修改等相关操作接口
+ */
 
-interface IArticleEditorService {
+interface IArticleEditService {
     /**
      * 更新添加文章
      * @param title

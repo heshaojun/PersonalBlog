@@ -14,9 +14,11 @@ import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 
 /**
- * @author heshaojun* @date 2020/12/17
- * @description 登陆过滤器，实现管理员登陆
- */
+ * @Author shaojun he
+ * @Mail keepword_heshaojun@hotmail.com
+ * @Date 2020/12/26
+ * @Description TODO web过滤器实现 session 创建和管理员登录功能
+ * */
 @WebFilter(urlPatterns = "/*")
 class LoginFilter implements Filter {
     @Autowired

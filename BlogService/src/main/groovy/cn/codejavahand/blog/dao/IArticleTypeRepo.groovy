@@ -1,8 +1,10 @@
 package cn.codejavahand.blog.dao
 
 /**
- * @author heshaojun* @date 2020/12/25
- * @description TODO 存取文章类型数据
+ * @Author shaojun he
+ * @Mail keepword_heshaojun@hotmail.com
+ * @Date 2020/12/26
+ * @Description TODO TODO 存取文章类型数据
  */
 interface IArticleTypeRepo {
     void updateCreate(String id, String type)

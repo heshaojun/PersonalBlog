@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 /**
- * @author heshaojun* @date 2020/12/18
- * @description TODO
+ * @Author shaojun he
+ * @Mail keepword_heshaojun@hotmail.com
+ * @Date 2020/12/26
+ * @Description TODO 网站数据相关的rest接口，提供给网站数据接口
  */
 @RestController()
 @RequestMapping("/data")
