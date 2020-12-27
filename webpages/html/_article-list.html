@@ -25,7 +25,7 @@
                 if (status == 'success') {
                     if (data['result'] == 'success') {
                         let result_data = data['data'];
-                        if (result_data.length > 0) {
+                        if (result_data['list'].length > 0) {
                             $("#_article_order_type_option").html("<a class=\"btn p-0 text-primary disabled\"\n" +
                                 "               onclick=\"change_home_article_order(this,'time')\"><small>按时间排序</small></a>\n" +
                                 "            |\n" +
@@ -57,7 +57,7 @@
 
     //获取文章列表，加载文章列表和文章列表分页栏
     function get_home_article_list(size, page) {
-        $.get("data/articleList", {
+        $.post("data/articleList", {
                 size: size,
                 page: page,
                 scope: articleScope,
@@ -68,8 +68,8 @@
                 if (status == "success") {
                     if (data['result'] == 'success') {
                         let result_data = data['data'];
-                        if (result_data.length < 1) {
-                            $("#_home-article-list-area").text("没有数据");
+                        if (result_data['list'].length < 1) {
+                            $("#_home-article-list-area").text("");
                         } else {
                             load_article_list("#_home-article-list-area", result_data);
                             loadPagination("#_home-article-list-pagination", result_data['currentPage'], result_data['totalPage'], function (index) {

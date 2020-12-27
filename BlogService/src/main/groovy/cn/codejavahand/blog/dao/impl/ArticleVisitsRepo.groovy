@@ -27,6 +27,6 @@ class ArticleVisitsRepo implements IArticleVisitsRepo {
     @Override
     @Cacheable(value = "articleVisits", key = "#id")
     int getById(String id) {
-        Integer.valueOf(TextFileOpUtils.readAllString(sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.VISITS_FILE_NAME}"))
+        Integer.valueOf(TextFileOpUtils.readAllString(sysConfig.rootPath + "/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.VISITS_FILE_NAME}").replaceAll("\n", ""))
     }
 }

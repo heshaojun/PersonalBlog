@@ -1,18 +1,9 @@
 package cn.codejavahand.blog.service.impl
 
 import cn.codejavahand.blog.common.CommonConst
-import cn.codejavahand.blog.dao.IArticleClassifyRepo
-import cn.codejavahand.blog.dao.IArticleCommentRepo
-import cn.codejavahand.blog.dao.IArticleCountRepo
-import cn.codejavahand.blog.dao.IArticleLabsRepo
-import cn.codejavahand.blog.dao.IArticleSummaryRepo
-import cn.codejavahand.blog.dao.IArticleTitleRepo
-import cn.codejavahand.blog.dao.IArticleTypeRepo
-import cn.codejavahand.blog.dao.IArticleVisitsRepo
-import cn.codejavahand.blog.dao.IWebVisitsRepo
+import cn.codejavahand.blog.dao.*
 import cn.codejavahand.blog.service.IArticleListService
 import cn.codejavahand.blog.service.vo.ArticleListVo
-import cn.codejavahand.blog.service.vo.CommentVo
 import cn.codejavahand.blog.service.vo.RestRespVo
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
@@ -20,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 import java.text.SimpleDateFormat
-import java.util.logging.SimpleFormatter
 
 @Service
 class ArticleListService implements IArticleListService {
@@ -49,6 +39,7 @@ class ArticleListService implements IArticleListService {
         respVo.setResult("success")
         if (page == 0) page = 1
         List<ArticleListVo.ArticleInfo> data = new ArrayList<>()
+        ArticleListVo articleListVo = new ArticleListVo()
         if (key.startsWith("clab_")) {
             logger.info("按分类分页查询")
             String clab = key.replaceAll("clab_", "").replaceAll("\n", "")
@@ -71,14 +62,41 @@ class ArticleListService implements IArticleListService {
             logger.info "全部文章"
             data = getAllArticleInfo()
         }
+        //按访问数量排序
         if (order == "visit") {
             data = data.sort { a, b -> a.visits - b.visits }
         }
-        ArticleListVo articleListVo = new ArticleListVo()
-        if ((page - 1) * size > data.size()) {
-            logger.info "页码过大，返回尾页"
-            data.size()/10
+        if (data.size() % size > 0) {
+            articleListVo.totalPage = (int) (data.size() / size) + 1
+        } else {
+            articleListVo.totalPage = (int) (data.size() / size)
         }
+        articleListVo.pageSize = size
+        articleListVo.orderBy = order
+        articleListVo.listCount = size
+
+        if (data.size() != 0) {
+            //进行分页处理
+            int fromIndex = 0
+            int toIndex = 0
+            if (page * size > data.size()) {
+                logger.info "页码过大，返回尾页"
+                page = (int) (data.size() / size) + 1
+                fromIndex = ((int) (data.size() / size)) * size
+                if (fromIndex != 0) fromIndex -= 1
+                toIndex = data.size()
+                articleListVo.listCount = data.size() % size
+            } else {
+                if (page - 1 > 0) fromIndex = (page - 1) * size - 1
+                toIndex = page * size
+            }
+            articleListVo.list = data.subList(fromIndex, toIndex)
+        } else {
+            articleListVo.list = []
+        }
+        articleListVo.currentPage = page
+        articleListVo.articleCount = data.size()
+        respVo.data = articleListVo
         respVo
     }
 
@@ -86,7 +104,7 @@ class ArticleListService implements IArticleListService {
     private List<ArticleListVo.ArticleInfo> getAllBlogInfo() {
         //获取所有上线的博客id
         List<String> blogIdList = articleCountRepo.countBlog(CommonConst.ARTICLE_STATUS_ONLINE)
-        blogIdList = blogIdList.sort()//按照时间排序，id就是时间戳
+        blogIdList = blogIdList.sort().reverse()//按照时间排序，id就是时间戳
         List<ArticleListVo.ArticleInfo> blogInfoList = new ArrayList<>()
         for (String id in blogIdList) {
             try {
@@ -109,7 +127,7 @@ class ArticleListService implements IArticleListService {
     private List<ArticleListVo.ArticleInfo> getAllNoteInfo() {
         //获取所有上线的笔记id
         List<String> noteIdLis = articleCountRepo.countNote(CommonConst.ARTICLE_STATUS_ONLINE)
-        noteIdLis = noteIdLis.sort()//按时间排序
+        noteIdLis = noteIdLis.sort().reverse()//按时间排序
         List<ArticleListVo.ArticleInfo> noteInfoList = new ArrayList<>()
         for (String id in noteIdLis) {
             try {
@@ -130,7 +148,7 @@ class ArticleListService implements IArticleListService {
     //获取所有文章信息
     private List<ArticleListVo.ArticleInfo> getAllArticleInfo() {
         List<String> articleIdList = articleCountRepo.countOnline()
-        articleIdList.sort()
+        articleIdList = articleIdList.sort().reverse()
         List<ArticleListVo.ArticleInfo> articleInfoList = new ArrayList<>()
         for (String id in articleIdList) {
             try {
@@ -144,6 +162,7 @@ class ArticleListService implements IArticleListService {
                 articleInfo.type = articleTypeRepo.getById(id)
                 articleInfoList.add(articleInfo)
             } catch (Exception e) {
+                e.printStackTrace()
             }
         }
         articleInfoList
