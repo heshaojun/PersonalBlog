@@ -22,7 +22,9 @@ import javax.servlet.http.HttpServletRequest
 @WebFilter(urlPatterns = "/*")
 class LoginFilter implements Filter {
     @Autowired
-    ILoginService loginService;
+    private ILoginService loginService;
+    @Autowired
+    private SysConfig sysConfig
 
     @Override
     void init(FilterConfig filterConfig) throws ServletException {
@@ -30,6 +32,12 @@ class LoginFilter implements Filter {
 
     @Override
     void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest servletRequest = (HttpServletRequest) request
+        //只运行带域名的连接访问
+        String host = servletRequest.getHeader("host")
+        if (!sysConfig.domainNames.contains(host)) {
+            return
+        }
         loginService.doLogin request, response, chain
     }
 

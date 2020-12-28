@@ -27,7 +27,6 @@ class SessionListener implements HttpSessionListener {
     @Override
     void sessionCreated(HttpSessionEvent se) {
         try {
-            logger.info "生成新的session"
             webVisitsCountService.visit()
         } catch (Exception e) {
         }

@@ -23,7 +23,6 @@ class WebVisitsCountService implements IWebVisitsCountService {
             } catch (Exception e) {
             }
             count += tempCount
-            logger.info "当前网站访问量：$count"
         }
         return count
     }
@@ -31,7 +30,6 @@ class WebVisitsCountService implements IWebVisitsCountService {
     @Override
     void visit() {
         synchronized (this) {
-            logger.info "有新的用户访问"
             tempCount += 1
         }
     }

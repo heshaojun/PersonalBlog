@@ -44,23 +44,34 @@ class ArticleListService implements IArticleListService {
             logger.info("按分类分页查询")
             String clab = key.replaceAll("clab_", "").replaceAll("\n", "")
             data = searchByClassifyLab(clab)
+            articleListVo.articleCount = data.size()
         } else if (key.startsWith("alab_")) {
             logger.info("按文章标签查询")
             String alab = key.replaceAll("alab_", "").replaceAll("\n", "")
             data = searchByArticleLab(alab)
+            articleListVo.articleCount = data.size()
         } else if (key.startsWith("kw_")) {
             logger.info("按关键字查询")
             String keyWord = key.replaceAll("kw_", "").replaceAll("\n", "")
             data = searchByKeyWord(keyWord)
-        } else if (scope == "note") {
-            logger.info "类型为笔记的"
-            data = getAllNoteInfo()
-        } else if (scope == "blog") {
-            logger.info "类型为博客的"
-            data = getAllBlogInfo()
+            articleListVo.articleCount = data.size()
         } else {
-            logger.info "全部文章"
-            data = getAllArticleInfo()
+            def blogList = getAllBlogInfo()
+            def noteList = getAllNoteInfo()
+            def articleList = getAllArticleInfo()
+            articleListVo.articleCount = articleList.size()
+            articleListVo.noteCount = noteList.size()
+            articleListVo.blogCount = blogList.size()
+            if (scope == "note") {
+                logger.info "获取类型为笔记的"
+                data = noteList
+            } else if (scope == "blog") {
+                logger.info "获取类型为博客的"
+                data = blogList
+            } else {
+                logger.info "获取全部文章数据"
+                data = articleList
+            }
         }
         //按访问数量排序
         if (order == "visit") {
@@ -95,7 +106,6 @@ class ArticleListService implements IArticleListService {
             articleListVo.list = []
         }
         articleListVo.currentPage = page
-        articleListVo.articleCount = data.size()
         respVo.data = articleListVo
         respVo
     }
@@ -115,7 +125,12 @@ class ArticleListService implements IArticleListService {
                 articleInfo.createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Long.valueOf(id))
                 articleInfo.title = articleTitleRepo.getById(id)
                 articleInfo.summary = articleSummaryRepo.getById(id)
-                articleInfo.type = articleTypeRepo.getById(id)
+                String type = articleTypeRepo.getById(id).replaceAll("\n", "")
+                if (type == CommonConst.ARTICLE_TYPE_BLOG) {
+                    articleInfo.type = "博客"
+                } else if (type == CommonConst.ARTICLE_TYPE_NOTE){
+                    articleInfo.type = "笔记"
+                }
                 blogInfoList.add(articleInfo)
             } catch (Exception e) {
             }
@@ -138,7 +153,12 @@ class ArticleListService implements IArticleListService {
                 articleInfo.createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Long.valueOf(id))
                 articleInfo.title = articleTitleRepo.getById(id)
                 articleInfo.summary = articleSummaryRepo.getById(id)
-                articleInfo.type = articleTypeRepo.getById(id)
+                String type = articleTypeRepo.getById(id).replaceAll("\n", "")
+                if (type == CommonConst.ARTICLE_TYPE_BLOG) {
+                    articleInfo.type = "博客"
+                } else if (type == CommonConst.ARTICLE_TYPE_NOTE){
+                    articleInfo.type = "笔记"
+                }
                 noteInfoList.add(articleInfo)
             } catch (Exception e) {
             }
@@ -159,7 +179,12 @@ class ArticleListService implements IArticleListService {
                 articleInfo.createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Long.valueOf(id))
                 articleInfo.title = articleTitleRepo.getById(id)
                 articleInfo.summary = articleSummaryRepo.getById(id)
-                articleInfo.type = articleTypeRepo.getById(id)
+                String type = articleTypeRepo.getById(id).replaceAll("\n", "")
+                if(type == CommonConst.ARTICLE_TYPE_BLOG) {
+                    articleInfo.type = "博客"
+                } else if (type == CommonConst.ARTICLE_TYPE_NOTE){
+                    articleInfo.type = "笔记"
+                }
                 articleInfoList.add(articleInfo)
             } catch (Exception e) {
                 e.printStackTrace()
