@@ -25,10 +25,16 @@ class TemplateController {
         'redirect:home.html'
     }
 
-    @RequestMapping("/admin/create")
+    @RequestMapping("/create")
     String toEditor(Model model) {
         model.addAttribute("actionUrl", "/admin/addArticle")
         'editor'
+    }
+
+    @RequestMapping("/detail/{id}")
+    String toEditor(@PathVariable("id") String id, Model model) {
+        model.addAttribute("articleId", id)
+        'detail'
     }
 
     @RequestMapping("/admin/alter/{id}")

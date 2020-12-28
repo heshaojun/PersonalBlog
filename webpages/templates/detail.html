@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章详情</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/github-markdown.css">
+    <link rel="stylesheet" href="/css/m.common.css">
+</head>
+<body>
+<header class="w-100  fixed-top ">
+    <!--    导航栏-->
+    <div class="container-xl _navigator-bar">
+    </div>
+</header>
+<article class="container-xl _after_header">
+    <div class="row flex-row-reverse">
+        <!-- 文章内容显示模块-->
+        <article class="col-md-12 align-self-start  p-0 pt-1 pb-1  sticky-top">
+            <!--文章详情模块-->
+            <div class="card _content-area">
+                <div class="card-header bg-white">
+                    <div class="font-weight-bolder pb-2 _article-detail-title"></div>
+                    <div class="ml-n1 mr-n1 w-100 p-1" style="border-radius: 2px;background-color: #D8D8D8">
+                        <div class="_article-detail-info"></div>
+                        <div class="_article-detail-labs"></div>
+                        <div class="_artcle-declare-info">
+                            <small><span class="font-weight-lighter"><small>版权声明：标记为原创文章皆为作者原创作品，如有引用或是转载请标明出处  本文章地址：www.codejavahand.cn/article/detail</small></span></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body _article-detail-content" th:data-mark="${articleId}">
+                    
+                </div>
+                <div class="card-footer">
+                    <div class="_article_comments">文章评论</div>
+                </div>
+            </div>
+            <!--    底部备案信息-->
+            <div class="_website-record"></div>
+        </article>
+    </div>
+</article>
+<script type="application/javascript" src="/js/jquery-3.5.1.min.js"></script>
+<script type="application/javascript" src="/js/showdown.min.js"></script>
+<script type="application/javascript" src="/js/bootstrap.bundle.min.js"></script>
+<script type="application/javascript" src="/js/bootstrap.min.js"></script>
+<script type="application/javascript" src="/js/m.common.js"></script>
+<script>
+    mainNavBtnIndex = -1;
+    $(function () {
+        //加载导航栏
+        $('._navigator-bar').load('/html/_admin-navigator.html');
+        //加载备案信息
+        $('._website-record').load('/html/_website-record.html');
+        let articleId = $("._article-detail-content").getAttribute("data-mark")
+        $.post("/data/detail", {articleId: articleId}, function (data, status) {
+            if (status == 'success') {
+                if (data['result'] == 'success') {
+                    let resultData = data['data']
+                    $("._article-detail-title").text(resultData['title']);
+                    loadArticleDetailInfo(resultData);
+                    loadArticleLabs(resultData);
+                    loadArticleContent(resultData);
+                }
+            }
+        })
+
+    })
+
+    //收索函数
+    function searchArticles(key) {
+        classifyMark = "kw_" + key;
+        //加载文章列表模块
+        $('._content-area').load('html/_article-list.html');
+    }
+
+    //加载文章信息
+    function loadArticleDetailInfo(data) {
+        let html = "";
+        if (data['original']) {
+            html += "<span class=\"mr-2\"><small class=\"bg-warning\">原创</small></span>";
+        } else {
+            html += "<span class=\"mr-2\"><small class=\"bg-warning\">非原创</small></span>";
+        }
+        html += "<span class=\"mr-2 \"><small>" + data['type'] + "</small></span>\n" +
+            "                <span class=\"mr-2\"><small>抠脚汉</small></span>\n" +
+            "                <span class=\"mr-2\"><small>" + data['createTime'] + "</small></span>\n" +
+            "                <span class=\"mr-2\"><img src=\"/icon/watch_icon.png\" height=\"22px\"><small\n" +
+            "                        class=\"pl-1\">" + data['visits'] + "</small></span>\n" +
+            "                <span class=\"mr-2\"><img src=\"/icon/comments_icon.png\" height=\"22px\"><small\n" +
+            "                        class=\"pl-1\">" + data['comments'] + "</small></span>";
+        $("._article-detail-info").html(html);
+    }
+
+    //加载文章标签
+    function loadArticleLabs(data) {
+        let html = "";
+        let classifyLabs = data['classifyLabs'];
+        let articleLabs = data['articleLabs'];
+        if (classifyLabs.length > 0) {
+            html += "<div class=\"d-inline mr-2\">\n" +
+                "                    <span><small>分类标签:</small></span>";
+            for (let i = 0; i < classifyLabs.length; i++) {
+                html += "<small><a class=\"d-inline-block bg-white\" style=\"padding: 0 2px;border-radius: 4px\">" + classifyLabs[i] + "</a></small>";
+            }
+            html += "</div>"
+        }
+        if (articleLabs.length > 0) {
+            html += "<div class=\"d-inline mr-2\">\n" +
+                "                    <span><small>文章标签:</small></span>";
+            for (let i = 0; i < articleLabs.length; i++) {
+                html += "<small><a class=\"d-inline-block bg-white\" style=\"padding: 0 2px;border-radius: 4px\">" + articleLabs[i] + "</a></small>";
+            }
+            html += "</div>"
+        }
+        $('._article-detail-labs').html(html);
+    }
+
+    // 加载正文
+    function loadArticleContent(data) {
+        let html = converter.makeHtml(data['content']);
+        $("._article-detail-content").html(html);
+    }
+</script>
+</body>
+</html>

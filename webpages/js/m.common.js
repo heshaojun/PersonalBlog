@@ -25,7 +25,7 @@ function load_article_list(selector, data) {
     let list = data['list'];
     for (let i = 0; i < list.length; i++) {
         let item = list[i];
-        let div = ' <a class="list-group-item list-group-item-action pt-1 pb-1  border-bottom" href="/detail?id=' + item['id'] + '">\n' +
+        let div = ' <a class="list-group-item list-group-item-action pt-1 pb-1  border-bottom" href="/detail/' + item['id'] + '">\n' +
             '        <div class="w-100"><span class="small pl-1 pr-1 bg-warning text-info">' + item['type'] + '</span><span\n' +
             '                class=" font-weight-bold ml-2">' + item['title'] + '</span></div>\n';
         if (item['summary']) {
