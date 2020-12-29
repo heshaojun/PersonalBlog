@@ -52,16 +52,16 @@
     <div class="card-body p-0 pl-2 pr-2 flex-row" id="_classify-labs">
     </div>
 </div>
-<!--最新评论-->
-<div class="card mt-1 ">
-    <div class="card-header">最新评论</div>
-    <div class="card-body p-0 pb-2" id="_new-comments">
-    </div>
-</div>
 <!--标签云-->
 <div class="card mt-1 ">
     <div class="card-header">标签云</div>
     <div class="card-body p-0 pl-2 pr-2 flex-row" id="_article-labs">
+    </div>
+</div>
+<!--最新评论-->
+<div class="card mt-1 ">
+    <div class="card-header">最新留言</div>
+    <div class="card-body p-0 pb-2" id="_new-comments">
     </div>
 </div>
 
@@ -83,14 +83,20 @@
             }
         });
         //加载日门文章
-        $.get('data/hot_articles.json', function (data, status) {
+        $.post("/data/articleList", {
+            size: 5,
+            page: 1,
+            scope: "all",
+            order: "visit",
+            mark: "none"
+        }, function (data, status) {
             if (status == 'success') {
                 if (data['result'] == 'success') {
-                    let result_data = data['data'];
+                    let result_data = data['data']['list'];
                     if (result_data) {
                         let html = '';
                         for (let i = 0; i < result_data.length; i++) {
-                            html += '        <a class="d-block w-100  border-top  ml-1 mr-1 pl-3 pr-3 pt-1 pb-1" href="article/detail/' + result_data[i]['id'] + '"\n' +
+                            html += '        <a class="d-block w-100  border-top  ml-1 mr-1 pl-3 pr-3 pt-1 pb-1" href="/detail/' + result_data[i]['id'] + '"\n' +
                                 '           target="_blank">' + result_data[i]['title'] + '</a>'
                         }
                         $("#_hot-articles").html(html);
@@ -99,10 +105,16 @@
             }
         });
         //加载最新文章
-        $.get('data/new_articles.json', function (data, status) {
+        $.post("/data/articleList", {
+            size: 5,
+            page: 1,
+            scope: "all",
+            order: "time",
+            mark: "none"
+        }, function (data, status) {
             if (status == 'success') {
                 if (data['result'] == 'success') {
-                    let result_data = data['data'];
+                    let result_data = data['data']['list'];
                     if (result_data) {
                         let html = '';
                         for (let i = 0; i < result_data.length; i++) {
@@ -115,7 +127,7 @@
             }
         });
         //加载分类标签
-        $.get('data/classify_labs.json', function (data, status) {
+        $.post('/data/classifyLabs', function (data, status) {
             if (status == 'success') {
                 if (data['result'] == 'success') {
                     let result_data = data['data'];
@@ -130,7 +142,7 @@
             }
         });
         //加载标签云
-        $.get('data/article_labs.json', function (data, status) {
+        $.post('/data/articleLabs', function (data, status) {
             if (status == 'success') {
                 if (data['result'] == 'success') {
                     let result_data = data['data'];
@@ -144,7 +156,7 @@
                 }
             }
         });
-        //加载标签云
+        //加载最新留言
         $.get('data/new_comments.json', function (data, status) {
             if (status == 'success') {
                 if (data['result'] == 'success') {
@@ -152,7 +164,7 @@
                     if (result_data) {
                         let html = '';
                         for (let i = 0; i < result_data.length; i++) {
-                            html += '<a class="d-block w-100  border-top  ml-1 mr-1 pl-3 pr-3 pt-1 pb-1" href="board.html">' + result_data[i] + '</a>';
+                            html += '<a class="d-block w-100  border-top  ml-1 mr-1 pl-3 pr-3 pt-1 pb-1" href="/board.html">' + result_data[i] + '</a>';
                             $("#_new-comments").html(html);
                         }
                     }

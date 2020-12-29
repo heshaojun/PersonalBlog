@@ -1,5 +1,7 @@
 package cn.codejavahand.blog.dao
 
+import cn.codejavahand.blog.service.vo.MsgBoardVo
+
 /**
  * @Author shaojun he
  * @Mail keepword_heshaojun@hotmail.com
@@ -9,5 +11,9 @@ package cn.codejavahand.blog.dao
 interface IMsgBoardRepo {
     List<String> getAllMsgId()
 
-    void addMsg(String msgId, String msg)
+    void addMsg(String msgId, MsgBoardVo msgBoardVo)
+
+    void deleteById(String msgId)
+
+    MsgBoardVo getById(String msgId)
 }

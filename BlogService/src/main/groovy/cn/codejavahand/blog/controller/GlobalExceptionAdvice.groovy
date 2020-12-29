@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 class GlobalExceptionAdvice {
     @ExceptionHandler(value = Exception.class)
     RestRespVo defaultHandler(Exception e) {
-        RestRespVo vo = new RestRespVo()
-        vo.code = 500
-        vo.msg = "系统异常"
-        vo.result = "fail"
-        vo
+        RestRespVo respVo = new RestRespVo()
+        respVo.code = 500
+        respVo.msg = "系统异常"
+        respVo.result = "fail"
+        respVo
     }
 }

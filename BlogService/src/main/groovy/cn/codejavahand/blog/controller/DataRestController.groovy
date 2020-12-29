@@ -1,6 +1,8 @@
 package cn.codejavahand.blog.controller
 
+import cn.codejavahand.blog.service.IArticleDetailService
 import cn.codejavahand.blog.service.IArticleListService
+import cn.codejavahand.blog.service.ILabsService
 import cn.codejavahand.blog.service.IWebStatisticService
 import cn.codejavahand.blog.service.vo.RestRespVo
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,10 +25,14 @@ class DataRestController {
     private IWebStatisticService webStatisticService
     @Autowired
     private IArticleListService articleListService
+    @Autowired
+    private IArticleDetailService articleDetailService
+    @Autowired
+    private ILabsService labsService
 
-    @GetMapping("/detail/{id}")
-    RestRespVo getArticleDetailInfo(@PathVariable("id") String id) {
-
+    @PostMapping("/detail")
+    RestRespVo getArticleDetailInfo(String articleId) {
+        articleDetailService.getArticleDetail(articleId)
     }
 
     @PostMapping("/webStatistic")
@@ -37,5 +43,15 @@ class DataRestController {
     @PostMapping("/articleList")
     RestRespVo articleList(int size, int page, String scope, String order, String mark) {
         articleListService.getArticleList(size, page, scope, order, mark)
+    }
+
+    @PostMapping("/classifyLabs")
+    RestRespVo getClassifyLabs() {
+        labsService.getAllClassifyLabs()
+    }
+
+    @PostMapping("/articleLabs")
+    RestRespVo getArticleLabs() {
+        labsService.getAllArticleLabs()
     }
 }

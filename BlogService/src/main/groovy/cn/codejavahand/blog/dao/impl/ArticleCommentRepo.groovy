@@ -50,6 +50,8 @@ class ArticleCommentRepo implements IArticleCommentRepo {
     CommentVo getById(String id, String commentId) {
         List<String> dataList = TextFileOpUtils.readAllLine "${sysConfig.rootPath}/${CommonConst.ARTICLE_PATH}/$id/${CommonConst.ARTICLE_COMMENTS_PATH}/$commentId"
         CommentVo commentVo = new CommentVo()
+        commentVo.id = id
+        commentVo.commentId = commentId
         commentVo.name = dataList.get(0)
         commentVo.comment = dataList.get(1)
         commentVo

@@ -5,6 +5,8 @@ package cn.codejavahand.blog.service.vo
  * @description TODO
  */
 class ArticleDetailVo {
+    String id
+    String title
     boolean original
     String type
     String createTime

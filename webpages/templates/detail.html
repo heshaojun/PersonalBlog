@@ -13,24 +13,26 @@
     <div class="container-xl _navigator-bar">
     </div>
 </header>
-<article class="container-xl _after_header">
+<article class="container-xl _after_header " id="_article-detail-content-area">
     <div class="row flex-row-reverse">
         <!-- 文章内容显示模块-->
         <article class="col-md-12 align-self-start  p-0 pt-1 pb-1  sticky-top">
             <!--文章详情模块-->
             <div class="card _content-area">
                 <div class="card-header bg-white">
-                    <div class="font-weight-bolder pb-2 _article-detail-title"></div>
+                    <div class="font-weight-bolder pb-2 "><h1 class="_article-detail-title"></h1></div>
                     <div class="ml-n1 mr-n1 w-100 p-1" style="border-radius: 2px;background-color: #D8D8D8">
                         <div class="_article-detail-info"></div>
                         <div class="_article-detail-labs"></div>
                         <div class="_artcle-declare-info">
-                            <small><span class="font-weight-lighter"><small>版权声明：标记为原创文章皆为作者原创作品，如有引用或是转载请标明出处  本文章地址：www.codejavahand.cn/article/detail</small></span></small>
+                            <small><span class="font-weight-lighter"><small>版权声明：标记为原创文章皆为作者原创作品，如有引用或是转载请标明出处  本文章地址：<a
+                                    th:href="'/detail/'+${articleId}"
+                                    th:text="'www.codejavahand.cn/detail/'+${articleId}">www.codejavahand.cn/article/detail/</a></small></span></small>
                         </div>
                     </div>
                 </div>
                 <div class="card-body _article-detail-content" th:data-mark="${articleId}">
-                    
+
                 </div>
                 <div class="card-footer">
                     <div class="_article_comments">文章评论</div>
@@ -53,7 +55,7 @@
         $('._navigator-bar').load('/html/_admin-navigator.html');
         //加载备案信息
         $('._website-record').load('/html/_website-record.html');
-        let articleId = $("._article-detail-content").getAttribute("data-mark")
+        let articleId = $("._article-detail-content").attr("data-mark")
         $.post("/data/detail", {articleId: articleId}, function (data, status) {
             if (status == 'success') {
                 if (data['result'] == 'success') {
@@ -62,7 +64,11 @@
                     loadArticleDetailInfo(resultData);
                     loadArticleLabs(resultData);
                     loadArticleContent(resultData);
+                } else {
+                    $("#_article-detail-content-area").html("<div>文章不存在</div>")
                 }
+            } else {
+                $("#_article-detail-content-area").html("<div>文章不存在</div>")
             }
         })
 
